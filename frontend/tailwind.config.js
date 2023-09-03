@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['src/**/*.{html,tsx,jsx,ts,js}'],
+  content: ['src/**/*.{html,tsx,jsx,ts,js}', 'index.html'],
   theme: {
     extend: {
       colors: {
@@ -18,7 +18,8 @@ export default {
         },
       },
       transitionProperty: {
-        position: 'left, right',
+        position: 'left, right, top, bottom',
+        borderRadius: 'border-radius',
       },
     },
   },

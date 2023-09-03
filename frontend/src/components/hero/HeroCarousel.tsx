@@ -48,7 +48,7 @@ export function HeroCarousel() {
 
   return (
     <>
-      <section>
+      <section className='z-10 bg-neutral-700'>
         <p>New in menu</p>
         <hr />
         <h1>{menuItem.name}</h1>

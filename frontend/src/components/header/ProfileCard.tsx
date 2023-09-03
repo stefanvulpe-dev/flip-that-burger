@@ -1,25 +1,64 @@
-import { faBraille } from '@fortawesome/free-solid-svg-icons';
+import {
+  faBraille,
+  faClose,
+  faRightFromBracket,
+  faUser,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ForwardedRef, forwardRef } from 'react';
+import { ForwardedRef, forwardRef, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export const ProfileCard = forwardRef(function (
   _props,
   ref: ForwardedRef<HTMLDivElement>,
 ) {
+  const infoRef = useRef<HTMLDivElement>(null);
+  const profileRef = useRef<HTMLDivElement>(null);
+  const [isInfoActive, setIsInfoActive] = useState(false);
+
   return (
     <div
       ref={ref}
-      className='bg-accent-100 py-5 absolute -bottom-96 sm:-bottom-80 left-0 right-0 transition-position ease-in-out duration-700 [&:not(.active)]:-left-full [&:not(.active)]:right-full md:static md:py-0'>
-      <div className='mx-auto justify-self-center group bg-accent-200 rounded-l-[3rem] rounded-r-2xl flex justify-center items-center gap-6 py-2 px-4 w-max cursor-pointer'>
+      className='bg-accent-100 pt-4 pb-48 absolute -bottom-[35rem] sm:-bottom-[30rem] left-0 right-0 transition-position ease-in-out duration-700 [&:not(.active)]:-left-full [&:not(.active)]:right-full md:static md:py-0'>
+      <div
+        onClick={() => {
+          infoRef.current?.classList.toggle('active');
+          profileRef.current?.classList.toggle('active');
+          setIsInfoActive(!isInfoActive);
+        }}
+        ref={profileRef}
+        className='relative mx-auto justify-self-center bg-accent-200 [&:not(.active)]:rounded-l-[3rem] [&:is(.active)]:rounded-ss-xl [&:is(.active)]:rounded-ee-none transition-borderRadius duration-500 ease-in-out rounded-r-2xl flex justify-center items-center gap-6 py-2 px-4 w-max cursor-pointer'>
         <img
           src='https://i.pravatar.cc/300'
           alt='avatar'
           className='max-w-[3.5rem] border-4 border-accent-400 rounded-full object-contain'
         />
-        <p className='text-accent-400 text-base xl:text-lg font-semibold border-b-2 border-accent-200 transition-colors group-hover:border-b-2 group-hover:border-accent-400'>
+        <p className='text-accent-400 text-base xl:text-lg font-semibold border-accent-200 border-b-2 transition-colors hover:border-b-2 hover:border-accent-400'>
           John Doeeeeeeee
         </p>
-        <FontAwesomeIcon icon={faBraille} className='text-lg text-accent-400' />
+        <FontAwesomeIcon
+          icon={isInfoActive ? faClose : faBraille}
+          className='text-lg text-accent-400'
+        />
+        <div
+          ref={infoRef}
+          className='transition-position duration-500 ease-in-out [&:not(.active)]:-z-[999] [&:not(.active)]:top-0 absolute top-[calc(100%-1px)] left-0 right-0  z-0 py-6 bg-accent-200 rounded-es-xl rounded-ee-xl text-accent-400'>
+          <Link to='/profile' className='block mb-6 max-w-[14ch] mx-auto group'>
+            <FontAwesomeIcon icon={faUser} className='text-xl pr-4' />
+            <span className='border-accent-200 border-b-2 transition-colors group-hover:border-b-2 group-hover:border-accent-400'>
+              Your profile
+            </span>
+          </Link>
+          <Link to='/login' className='block max-w-[14ch] mx-auto group'>
+            <FontAwesomeIcon
+              icon={faRightFromBracket}
+              className='text-xl pr-4'
+            />
+            <span className='border-accent-200 border-b-2 transition-colors group-hover:border-b-2 group-hover:border-accent-400'>
+              Sign out
+            </span>
+          </Link>
+        </div>
       </div>
     </div>
   );
