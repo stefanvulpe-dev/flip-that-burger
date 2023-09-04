@@ -12,7 +12,7 @@ export function CarouselControls({
   selectedIndex: number;
 }) {
   return (
-    <div className='w-11/12 max-w-6xl mx-auto pt-4 text-accent-400 font-semibold lg:text-lg'>
+    <div className='w-11/12 max-w-6xl mx-auto text-accent-400 text-center md:text-start font-semibold lg:text-lg'>
       <button type='button' onClick={onClickPrev}>
         <FontAwesomeIcon icon={faAngleLeft} className='text-accent-200 pr-2' />
       </button>
