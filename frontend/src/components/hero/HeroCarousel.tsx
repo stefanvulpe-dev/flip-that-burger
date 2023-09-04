@@ -1,49 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faAngleRight,
-  faAngleLeft,
-  faPlus,
-} from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
-import burgerImage from '../../assets/hero-humburger.png';
-
-const menuItems = [
-  {
-    id: 1,
-    name: 'Classic Burger',
-    ingredients: ['Beef Patty', 'Lettuce', 'Tomato'],
-    price: 5.99,
-    image: burgerImage,
-  },
-  {
-    id: 2,
-    name: 'Chicago Cheeseburger',
-    ingredients: ['Beef Patty', 'Cheese', 'Lettuce'],
-    price: 6.99,
-    image: burgerImage,
-  },
-  {
-    id: 3,
-    name: 'Veggie Burger',
-    ingredients: ['Veggie Patty', 'Lettuce', 'Mayonnaise'],
-    price: 4.99,
-    image: burgerImage,
-  },
-  {
-    id: 4,
-    name: 'Bacon Burger',
-    ingredients: ['Bacon', 'Ketchup', 'Mustard'],
-    price: 7.99,
-    image: burgerImage,
-  },
-  {
-    id: 5,
-    name: 'Double Cheeseburger',
-    ingredients: ['2 Beef Patties', '2 Slices of Cheese', 'Ketchup'],
-    price: 8.99,
-    image: burgerImage,
-  },
-];
+import { CarouselControls } from './CarouselControls';
+import { menuItems } from '../../data/MenuItems';
 
 export function HeroCarousel() {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -89,40 +48,23 @@ export function HeroCarousel() {
           className='max-w-[16rem] mx-auto self-center lg:max-w-xs'
         />
       </article>
-      <div className='w-11/12 max-w-6xl mx-auto pt-4 text-accent-400 font-semibold lg:text-lg'>
-        <button
-          type='button'
-          onClick={() => {
-            if (selectedIndex === 0) {
-              setSelectedIndex(menuItems.length - 1);
-            } else {
-              setSelectedIndex(selectedIndex - 1);
-            }
-          }}>
-          <FontAwesomeIcon
-            icon={faAngleLeft}
-            className='text-accent-200 pr-2'
-          />
-        </button>
-        <span className='tracking-widest'>
-          <span className='text-accent-200'>0{selectedIndex + 1} / </span> 0
-          {menuItems.length}
-        </span>
-        <button
-          type='button'
-          onClick={() => {
-            if (selectedIndex === menuItems.length - 1) {
-              setSelectedIndex(0);
-            } else {
-              setSelectedIndex(selectedIndex + 1);
-            }
-          }}>
-          <FontAwesomeIcon
-            icon={faAngleRight}
-            className='text-accent-200 pl-2'
-          />
-        </button>
-      </div>
+      <CarouselControls
+        onClickPrev={() => {
+          if (selectedIndex === 0) {
+            setSelectedIndex(menuItems.length - 1);
+          } else {
+            setSelectedIndex(selectedIndex - 1);
+          }
+        }}
+        onClickNext={() => {
+          if (selectedIndex === menuItems.length - 1) {
+            setSelectedIndex(0);
+          } else {
+            setSelectedIndex(selectedIndex + 1);
+          }
+        }}
+        selectedIndex={selectedIndex}
+      />
     </>
   );
 }
