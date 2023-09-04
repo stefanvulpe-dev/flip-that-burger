@@ -52,7 +52,9 @@ Also, be sure to have `git` available in your PATH, `npm` might need it.
 
 ## Start & watch
 
-    $ npm run watch #for generating a css file and listen to changes in any other file
+    $ #for generating a style.css file and listen to changes in html, tsx and any other component file
+    $ npm run watch
+    $ #start the dev server
     $ npm run dev
 
 ## Simple build for production
