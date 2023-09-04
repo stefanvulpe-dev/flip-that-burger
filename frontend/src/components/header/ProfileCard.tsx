@@ -19,7 +19,7 @@ export const ProfileCard = forwardRef(function (
   return (
     <div
       ref={ref}
-      className='bg-accent-100 pt-4 pb-48 absolute -bottom-[35rem] sm:-bottom-[30rem] left-0 right-0 transition-position ease-in-out duration-700 [&:not(.active)]:-left-full [&:not(.active)]:right-full md:static md:py-0'>
+      className='self-center bg-accent-100 pt-4 pb-48 absolute -bottom-[35rem] sm:-bottom-[30rem] left-0 right-0 transition-position ease-in-out duration-700 [&:not(.active)]:-left-full [&:not(.active)]:right-full md:static md:py-0'>
       <div
         onClick={() => {
           infoRef.current?.classList.toggle('active');

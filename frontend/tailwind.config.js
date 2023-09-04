@@ -21,6 +21,9 @@ export default {
         position: 'left, right, top, bottom',
         borderRadius: 'border-radius',
       },
+      gridTemplateColumns: {
+        'fill-2': '2fr 1fr',
+      },
     },
   },
   plugins: [],
