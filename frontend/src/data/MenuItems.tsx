@@ -1,4 +1,4 @@
-import burgerImage from '../assets/hero-humburger.png';
+import burgerImage from '../assets/hero-hamburger.png';
 
 export const menuItems = [
   {
