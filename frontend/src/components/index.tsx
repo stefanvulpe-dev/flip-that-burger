@@ -7,3 +7,5 @@ export { NavBar } from './header/NavBar';
 export { PrimaryButton } from './header/PrimaryButton';
 export { ProfileCard } from './header/ProfileCard';
 export { BurgerCard } from './main/offers/BurgerCard';
+export { FooterSection } from './footer/FooterSection';
+export { SocialLinks } from './footer/SocialLinks';

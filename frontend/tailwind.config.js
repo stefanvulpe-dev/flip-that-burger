@@ -23,6 +23,7 @@ export default {
       },
       gridTemplateColumns: {
         'fill-2': '2fr 1fr',
+        'fill-3': '1fr 1fr 1fr',
       },
       backgroundImage: {
         'promo-mobile': "url('/src/assets/delivery-guy.png')",
