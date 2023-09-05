@@ -1,7 +1,5 @@
-import { NavBar } from './NavBar';
-import { PrimaryButton } from '../PrimaryButton';
-import chefLogo from '../../assets/icon-chef.png';
-import { ProfileCard } from './ProfileCard';
+import { NavBar, PrimaryButton, ProfileCard } from '../components/index';
+import chefLogo from '../assets/icon-chef.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useRef, useState } from 'react';
@@ -25,7 +23,7 @@ export function Header() {
           setIsOpen(!isOpen);
         }}
       />
-      <div className='w-4/5 max-w-2xl xl:max-w-6xl py-4 grid gap-6 grid-flow-col xl:grid-cols-3 mx-auto'>
+      <div className='w-11/12 max-w-2xl xl:max-w-6xl py-4 grid gap-6 grid-flow-col xl:grid-cols-3 mx-auto'>
         <NavBar ref={navBarRef} />
         <div className='justify-self-center w-64 max-w-[80%] flex items-center justify-center sm:justify-between xl:justify-evenly xl:max-w-none xl:w-auto xl:justify-self-auto'>
           <img

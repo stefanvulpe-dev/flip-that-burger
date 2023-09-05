@@ -1,2 +1,9 @@
-export { Footer } from './Footer';
-export { Header } from './header/Header';
+export { PresentationSection } from './main/presentation/PresentationSection';
+export { BurgersSection } from './main/burgers/BurgersSection';
+export { PromoSection } from './main/promo/PromoSection';
+export { OffersSection } from './main/offers/OffersSection';
+export { HeroCarousel } from './hero/HeroCarousel';
+export { NavBar } from './header/NavBar';
+export { PrimaryButton } from './header/PrimaryButton';
+export { ProfileCard } from './header/ProfileCard';
+export { BurgerCard } from './main/offers/BurgerCard';

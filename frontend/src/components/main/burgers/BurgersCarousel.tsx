@@ -1,13 +1,13 @@
 import Carousel, { ControlProps } from 'nuka-carousel';
 import { Link } from 'react-router-dom';
-import { menuItems } from '../../data/MenuItems';
+import { menuItems } from '../../../data/MenuItems';
 import {
   faAngleLeft,
   faAngleRight,
   faCartShopping,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useWindowWidth } from '../../hooks/WindowWidth';
+import { useWindowWidth } from '../../../hooks/WindowWidth';
 
 export function BurgersCarousel() {
   const numberToShow = useWindowWidth();

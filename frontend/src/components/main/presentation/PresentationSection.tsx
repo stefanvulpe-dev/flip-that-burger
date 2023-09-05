@@ -1,15 +1,15 @@
 import { Link } from 'react-router-dom';
-import burgerImage from '../../assets/section-burger.png';
+import burgerImage from '../../../assets/section-burger.png';
 import { faUsers } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export function PresentationSection() {
   return (
-    <section className='w-11/12 max-w-6xl mx-auto mt-6 grid md:grid-cols-2 gap-6 md:gap-4 justify-items-center md:justify-items-start'>
+    <section className='w-11/12 max-w-6xl mx-auto mt-10 grid md:grid-cols-2 gap-6 md:gap-4 justify-items-center md:justify-items-start'>
       <p className='uppercase text-accent-200 font-semibold md:self-end'>
         Welcome
       </p>
-      <h2 className='text-2xl md:text-4xl font-bold text-neutral-300 md:max-w-[10ch] text-center md:text-start md:row-start-2 md:row-end-3'>
+      <h2 className='text-2xl md:text-4xl font-bold text-neutral-300 max-w-[15ch] md:max-w-[10ch] text-center md:text-start md:row-start-2 md:row-end-3'>
         We make the best burger in town
       </h2>
       <p className='text-neutral-300 max-w-[45ch] text-center md:max-w-none md:text-start md:row-start-3 md:row-end-4'>
