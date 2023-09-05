@@ -8,6 +8,7 @@ export function BurgerCard({
   image,
   link,
   bgColor,
+  borderColor,
   gridColSpan,
 }: {
   title: string;
@@ -15,11 +16,12 @@ export function BurgerCard({
   image: string;
   link: string;
   bgColor: string;
+  borderColor: string;
   gridColSpan?: string;
 }) {
   return (
     <div
-      className={`bg-${bgColor} ${gridColSpan} max-w-sm w-full xl:max-w-none grid justify-items-center gap-6 items-center rounded-lg py-6 px-6 first-of-type:xl:py-10 first-of-type:xl:grid-cols-2 [&:nth-of-type(2)]:xl:grid-cols-2`}>
+      className={`${bgColor} ${gridColSpan} max-w-sm w-full xl:max-w-none grid justify-items-center gap-6 items-center rounded-lg py-6 px-6 first-of-type:xl:py-10 first-of-type:xl:grid-cols-2 [&:nth-of-type(2)]:xl:grid-cols-2`}>
       <p className='uppercase text-accent-400 font-semibold text-sm'>
         {subtitle}
       </p>
@@ -35,7 +37,7 @@ export function BurgerCard({
         to={link}
         className='text-accent-400 uppercase text-sm first-of-type:xl:row-start-3 [&:nth-of-type(2)]:xl:row-start-3'>
         <span
-          className={`transition-colors border-b-2 border-${bgColor} hover:border-accent-400`}>
+          className={`transition-colors border-b-2 ${borderColor} hover:border-accent-400`}>
           Order now
         </span>
         <FontAwesomeIcon icon={faArrowRight} className='pl-2' />
