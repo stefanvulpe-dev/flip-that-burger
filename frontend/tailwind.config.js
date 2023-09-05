@@ -28,6 +28,7 @@ export default {
       backgroundImage: {
         'promo-mobile': "url('/src/assets/delivery-guy.png')",
         'promo-desktop': "url('/src/assets/delivery-guy-desktop.png')",
+        'hero-desktop': "url('/src/assets/circle.svg')",
       },
     },
   },

@@ -11,7 +11,7 @@ export function HeroCarousel() {
 
   return (
     <>
-      <article className='text-accent-400 w-11/12 max-w-6xl mx-auto grid gap-6 md:grid-cols-fill-2'>
+      <article className='text-accent-400 w-11/12 max-w-6xl mx-auto grid gap-6 md:grid-cols-fill-2 lg:bg-hero-desktop bg-no-repeat bg-right-bottom'>
         <div>
           <div className='flex gap-2 items-center pb-4'>
             <p className='uppercase font-bold text-xs lg:text-base'>
@@ -45,7 +45,7 @@ export function HeroCarousel() {
         <img
           src={menuItem.image}
           alt='burger-image'
-          className='max-w-[16rem] mx-auto self-center lg:max-w-xs'
+          className='max-w-[16rem] mx-auto self-center lg:max-w-xs xl:max-w-md'
         />
       </article>
       <CarouselControls
