@@ -1,6 +1,6 @@
 # Flip that burger app
 
-This is a web app designed for a burger restaurant in order to present, promote, and efficiently manage this kind of business. It consists of a landing page with four sections: home, menu, about, and contact; a page for online orders; a profile page where a user can see past orders and stuff related to promotions; and an admin page with a dashboard for stats and tools for adjusting the price and products in the menu.
+A web app designed for a burger restaurant in order to present, promote, and efficiently manage this kind of business. It consists of a landing page with four sections: home, menu, about, and contact; a page for online orders; a profile page where a user can see past orders and stuff related to promotions; and an admin page with a dashboard for stats and tools for adjusting the price and products in the menu.
 
 ## Table of contents
 
