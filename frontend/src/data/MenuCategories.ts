@@ -1,16 +1,22 @@
+import burgerLogo from '../assets/menu/burger-logo.png';
+import pizzaLogo from '../assets/menu/pizza-logo.png';
+import chickenLogo from '../assets/menu/chicken-logo.png';
+import beveragesLogo from '../assets/menu/beverages-logo.png';
+import coffeeLogo from '../assets/menu/coffee-logo.png';
+
 export const menuCategoris = [
   {
     label: 'burgers',
-    url: '/flip-that-burger/src/assets/menu/burger-logo.png',
+    url: burgerLogo,
   },
-  { label: 'pizzas', url: '/flip-that-burger/src/assets/menu/pizza-logo.png' },
+  { label: 'pizzas', url: pizzaLogo },
   {
     label: 'chicken',
-    url: '/flip-that-burger/src/assets/menu/chicken-logo.png',
+    url: chickenLogo,
   },
   {
     label: 'beverages',
-    url: '/flip-that-burger/src/assets/menu/beverages-logo.png',
+    url: beveragesLogo,
   },
-  { label: 'coffee', url: '/flip-that-burger/src/assets/menu/coffee-logo.png' },
+  { label: 'coffee', url: coffeeLogo },
 ];
