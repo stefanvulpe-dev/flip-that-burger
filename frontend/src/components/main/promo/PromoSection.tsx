@@ -25,7 +25,7 @@ export function PromoSection({
       <h2 className='text-2xl text-neutral-300 font-bold max-w-[20ch] text-center md:text-start md:max-w-[15ch] lg:text-3xl md:justify-self-start md:group-last-of-type:justify-self-end md:group-last-of-type:text-end'>
         {title}
       </h2>
-      <p className='text-neutral-300 max-w-[30ch] text-center md:text-start md:group-last-of-type:text-end'>
+      <p className='text-neutral-300 max-w-[30ch] text-center text-sm lg:text-base md:text-start md:group-last-of-type:text-end'>
         {description}
       </p>
       <Link

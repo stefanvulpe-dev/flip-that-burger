@@ -10,4 +10,7 @@
   body {
     @apply min-h-screen;
   }
+  a.active {
+    @apply border-accent-400;
+  }
 }
