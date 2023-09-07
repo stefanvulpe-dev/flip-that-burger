@@ -1,5 +1,5 @@
 import { OffersSection } from '../../components/index';
-import { OffersGrid } from '../OffersGrid';
+import { OffersGrid } from './OffersGrid';
 
 export function OffersContainer() {
   return (

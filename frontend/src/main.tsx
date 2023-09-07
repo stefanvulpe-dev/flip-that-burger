@@ -10,11 +10,13 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 import { RootLayout } from './layouts/RootLayout.tsx';
+import { About } from './pages/About.tsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/flip-that-burger/' element={<RootLayout />}>
       <Route index element={<App />} />
+      <Route path='about' element={<About />} />
     </Route>,
   ),
 );

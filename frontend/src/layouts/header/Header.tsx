@@ -1,5 +1,5 @@
-import { NavBar, PrimaryButton, ProfileCard } from '../components/index';
-import chefLogo from '../assets/icon-chef.png';
+import { NavBar, PrimaryButton, ProfileCard } from '../../components/index';
+import chefLogo from '../../assets/main/icon-chef.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useRef, useState } from 'react';

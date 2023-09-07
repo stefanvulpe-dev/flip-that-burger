@@ -1,12 +1,12 @@
 import { Outlet } from 'react-router-dom';
-import { Footer } from '../layouts/Footer';
-import { Header } from '../layouts/Header';
+import { Footer } from './footer/Footer';
+import { Header } from '../layouts/header/Header';
 
 export function RootLayout() {
   return (
     <>
       <Header />
-      <main>
+      <main className='min-h-screen bg-accent-400'>
         <Outlet />
       </main>
       <Footer />

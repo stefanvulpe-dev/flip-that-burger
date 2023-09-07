@@ -1,5 +1,5 @@
-import { BurgerCard } from '../components/index';
-import burgerImage from '../assets/hero-hamburger.png';
+import { BurgerCard } from '../../components/index';
+import burgerImage from '../../assets/main/hero-hamburger.png';
 
 export function OffersGrid() {
   return (

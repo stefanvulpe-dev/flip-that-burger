@@ -1,5 +1,5 @@
 import { FooterSection, SocialLinks } from '../../components';
-import footerLogo from '../../assets/icon-chef.png';
+import footerLogo from '../../assets/main/icon-chef.png';
 
 export function FooterContainer() {
   return (

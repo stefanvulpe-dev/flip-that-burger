@@ -5,6 +5,7 @@ import {
   faAngleLeft,
   faAngleRight,
   faCartShopping,
+  faCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useWindowWidth } from '../../../hooks/WindowWidth';
@@ -20,10 +21,11 @@ export function BurgersCarousel() {
           <button
             aria-label='next'
             type='button'
-            onClick={() => props.previousSlide()}>
+            onClick={() => props.previousSlide()}
+            className='relative -left-10'>
             <FontAwesomeIcon
               icon={faAngleLeft}
-              className='text-2xl text-accent-400 bg-neutral-300 rounded-full px-4 py-3'
+              className='text-2xl text-neutral-300 rounded-full'
             />
           </button>
         );
@@ -33,12 +35,39 @@ export function BurgersCarousel() {
           <button
             aria-label='next'
             type='button'
-            onClick={() => props.nextSlide()}>
+            onClick={() => props.nextSlide()}
+            className='relative -right-10'>
             <FontAwesomeIcon
               icon={faAngleRight}
-              className='text-2xl text-accent-400 bg-neutral-300 rounded-full px-4 py-3'
+              className='text-2xl text-neutral-300 rounded-full'
             />
           </button>
+        );
+      }}
+      renderBottomCenterControls={(props: ControlProps) => {
+        return (
+          <ul className='relative flex gap-4 top-10'>
+            {menuItems
+              .slice(0, menuItems.length - numberToShow + 1)
+              .map((_, index) => (
+                <li key={index}>
+                  <button
+                    aria-label='next'
+                    type='button'
+                    onClick={() => props.goToSlide(index)}
+                    className={`${
+                      props.currentSlide === index
+                        ? 'text-accent-200'
+                        : 'text-accent-400'
+                    }`}>
+                    <FontAwesomeIcon
+                      icon={faCircle}
+                      className='text-xs border-2 border-solid border-neutral-300 rounded-full'
+                    />
+                  </button>
+                </li>
+              ))}
+          </ul>
         );
       }}
       cellSpacing={20}>

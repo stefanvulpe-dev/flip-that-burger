@@ -26,9 +26,9 @@ export default {
         'fill-3': '1fr 1fr 1fr',
       },
       backgroundImage: {
-        'promo-mobile': "url('/src/assets/delivery-guy.png')",
-        'promo-desktop': "url('/src/assets/delivery-guy-desktop.png')",
-        'hero-desktop': "url('/src/assets/circle.svg')",
+        'promo-mobile': "url('/src/assets/main/delivery-guy.png')",
+        'promo-desktop': "url('/src/assets/main/delivery-guy-desktop.png')",
+        'hero-desktop': "url('/src/assets/main/circle.svg')",
       },
     },
   },

@@ -1,4 +1,4 @@
-export { PresentationSection } from './main/presentation/PresentationSection';
+export { PresentationSection } from './presentation/PresentationSection';
 export { BurgersSection } from './main/burgers/BurgersSection';
 export { PromoSection } from './main/promo/PromoSection';
 export { OffersSection } from './main/offers/OffersSection';

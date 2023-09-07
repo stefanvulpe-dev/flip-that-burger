@@ -1,5 +1,5 @@
-import { Hero } from './layouts/Hero';
-import { MainContainer } from './layouts/containers/MainContainer';
+import { Hero } from './layouts/main/Hero';
+import { MainContainer } from './layouts/main/MainContainer';
 
 function App() {
   return (

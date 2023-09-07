@@ -1,4 +1,4 @@
-import burgerImage from '../assets/hero-hamburger.png';
+import burgerImage from '../assets/main/hero-hamburger.png';
 
 export const menuItems = [
   {
@@ -34,6 +34,13 @@ export const menuItems = [
     name: 'Double Cheeseburger',
     ingredients: ['2 Beef Patties', '2 Slices of Cheese', 'Ketchup'],
     price: 8.99,
+    image: burgerImage,
+  },
+  {
+    id: 6,
+    name: 'Bacon Cheeseburger',
+    ingredients: ['Beef Patty', 'Bacon', 'Cheese'],
+    price: 7.99,
     image: burgerImage,
   },
 ];
