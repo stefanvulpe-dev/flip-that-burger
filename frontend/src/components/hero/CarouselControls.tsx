@@ -17,7 +17,10 @@ export function CarouselControls({
         <FontAwesomeIcon icon={faAngleLeft} className='text-accent-200 pr-2' />
       </button>
       <span className='tracking-widest'>
-        <span className='text-accent-200'>0{selectedIndex + 1} / </span>
+        <span className='text-accent-200'>
+          {selectedIndex + 1 > 9 ? selectedIndex + 1 : `0${selectedIndex + 1}`}{' '}
+          /{' '}
+        </span>
         {menuItems.length > 9 ? menuItems.length : `0${menuItems.length}`}
       </span>
       <button type='button' onClick={onClickNext}>
