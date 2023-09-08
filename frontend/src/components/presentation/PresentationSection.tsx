@@ -19,7 +19,7 @@ export function PresentationSection({
 }) {
   return (
     <section className='w-11/12 max-w-6xl mx-auto pt-10 grid md:grid-cols-2 gap-6 md:gap-4 justify-items-center md:justify-items-start'>
-      <p className='uppercase w-fit text-center text-accent-200 font-semibold md:self-end'>
+      <p className='uppercase w-full text-center md:text-start text-accent-200 font-semibold md:self-end'>
         {subtitle}
       </p>
       <h2 className='text-2xl md:text-4xl font-bold text-neutral-300 max-w-[15ch] md:max-w-[10ch] text-center md:text-start md:row-start-2 md:row-end-3'>
@@ -30,7 +30,7 @@ export function PresentationSection({
       </p>
       <Link
         to={link}
-        className='w-fit text-accent-400 bg-accent-200 rounded-full px-8 py-4 transition-colors hover:bg-accent-300 md:row-start-4 md:row-end-5 md:self-start'>
+        className='text-accent-400 text-sm md:text-base bg-accent-200 rounded-full px-8 py-4 transition-colors hover:bg-accent-300 md:row-start-4 md:row-end-5 md:self-start'>
         <FontAwesomeIcon icon={faUsers} className='pr-2'></FontAwesomeIcon>
         {linkText}
       </Link>
