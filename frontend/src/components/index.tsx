@@ -9,3 +9,6 @@ export { ProfileCard } from './header/ProfileCard';
 export { BurgerCard } from './main/offers/BurgerCard';
 export { FooterSection } from './footer/FooterSection';
 export { SocialLinks } from './footer/SocialLinks';
+export { ContactForm } from './contact/ContactForm';
+export { FormSection } from './contact/FormSection';
+export { OthersSection } from './contact/OthersSection';
