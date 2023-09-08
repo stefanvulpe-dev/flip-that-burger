@@ -41,13 +41,15 @@ export function ReviewsCarousel() {
       }}
       cellSpacing={20}>
       {testimonials.map(testimonial => (
-        <div className='max-w-[25rem] mx-auto text-center rounded border-2 border-solid border-neutral-500 grid gap-4 place-items-center  md:max-w-3xl'>
+        <div
+          key={testimonial.image}
+          className='max-w-[20rem] mx-auto text-center rounded border-2 border-solid border-neutral-500 grid gap-4 place-items-center  md:max-w-2xl'>
           <img
             src={testimonial.image}
             alt='burgerImage'
             className='w-full md:max-w-[20rem] aspect-square md:row-span-2 md:justify-self-start'
           />
-          <p className='px-4'>{testimonial.opinion}</p>
+          <p className='px-4 text-sm md:text-base'>{testimonial.opinion}</p>
           <p className='font-semibold md:col-start-2 md:col-end-3'>
             {testimonial.name}
             <span className='block text-neutral-500'>{testimonial.job}</span>

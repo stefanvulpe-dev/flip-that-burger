@@ -25,7 +25,7 @@ export function PresentationSection({
       <h2 className='text-2xl md:text-4xl font-bold text-neutral-300 max-w-[15ch] md:max-w-[10ch] text-center md:text-start md:row-start-2 md:row-end-3'>
         {title}
       </h2>
-      <p className='text-neutral-300 max-w-[45ch] text-center md:max-w-none md:text-start md:row-start-3 md:row-end-4'>
+      <p className='text-neutral-300 max-w-[40ch] text-center text-sm lg:text-base md:max-w-none md:text-start md:row-start-3 md:row-end-4'>
         {description}
       </p>
       <Link

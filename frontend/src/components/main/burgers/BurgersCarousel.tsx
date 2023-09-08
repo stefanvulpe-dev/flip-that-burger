@@ -12,8 +12,7 @@ export function BurgersCarousel() {
     <Carousel
       slidesToShow={numberToShow}
       autoplay={true}
-      autoplayReverse={true}
-      autoplayInterval={3000}
+      autoplayInterval={3500}
       renderCenterLeftControls={() => {
         return <div className='hidden'></div>;
       }}
