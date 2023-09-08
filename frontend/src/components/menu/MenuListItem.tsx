@@ -3,11 +3,10 @@ import { MenuItem } from '../../data/MenuItems';
 export function MenuListItem({ item }: { item: MenuItem }) {
   return (
     <li
-      key={item.id}
       className={
         'flex pb-10 xl:pb-16 justify-between relative ' +
         (item.new
-          ? `before:absolute before:-top-4 before:left-0 before:content-['new'] before:uppercase before:bg-accent-200 before:text-accent-400 before:text-xs before:px-4 before:rounded-md`
+          ? `before:absolute before:z-10 before:-top-4 before:left-0 before:content-['new'] before:uppercase before:bg-accent-200 before:text-accent-400 before:text-xs before:px-4 before:rounded-md`
           : '')
       }>
       <p>

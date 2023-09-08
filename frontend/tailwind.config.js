@@ -20,6 +20,7 @@ export default {
       transitionProperty: {
         position: 'left, right, top, bottom',
         borderRadius: 'border-radius',
+        visibility: 'visibility',
       },
       gridTemplateColumns: {
         'fill-2': '2fr 1fr',

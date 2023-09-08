@@ -1,8 +1,4 @@
-import {
-  faAngleLeft,
-  faAngleRight,
-  faCircle,
-} from '@fortawesome/free-solid-svg-icons';
+import { faCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Carousel, { ControlProps } from 'nuka-carousel';
 import { testimonials } from '../../data/Testimonials';
@@ -11,31 +7,13 @@ export function ReviewsCarousel() {
   return (
     <Carousel
       slidesToShow={1}
-      renderCenterLeftControls={(props: ControlProps) => {
-        return (
-          <button
-            aria-label='next'
-            type='button'
-            onClick={() => props.previousSlide()}>
-            <FontAwesomeIcon
-              icon={faAngleLeft}
-              className='text-2xl text-neutral-300'
-            />
-          </button>
-        );
+      autoplay={true}
+      autoplayInterval={2000}
+      renderCenterLeftControls={() => {
+        return <div className='hidden'></div>;
       }}
-      renderCenterRightControls={(props: ControlProps) => {
-        return (
-          <button
-            aria-label='next'
-            type='button'
-            onClick={() => props.nextSlide()}>
-            <FontAwesomeIcon
-              icon={faAngleRight}
-              className='text-2xl text-neutral-300'
-            />
-          </button>
-        );
+      renderCenterRightControls={() => {
+        return <div className='hidden'></div>;
       }}
       renderBottomCenterControls={(props: ControlProps) => {
         return (

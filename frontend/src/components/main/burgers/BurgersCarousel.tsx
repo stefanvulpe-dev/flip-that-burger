@@ -1,12 +1,7 @@
 import Carousel, { ControlProps } from 'nuka-carousel';
 import { Link } from 'react-router-dom';
 import { menuItems } from '../../../data/MenuItems';
-import {
-  faAngleLeft,
-  faAngleRight,
-  faCartShopping,
-  faCircle,
-} from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping, faCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useWindowWidth } from '../../../hooks/WindowWidth';
 
@@ -16,41 +11,21 @@ export function BurgersCarousel() {
   return (
     <Carousel
       slidesToShow={numberToShow}
-      renderCenterLeftControls={(props: ControlProps) => {
-        return (
-          <button
-            aria-label='next'
-            type='button'
-            onClick={() => props.previousSlide()}
-            className='relative -left-10'>
-            <FontAwesomeIcon
-              icon={faAngleLeft}
-              className='text-2xl text-neutral-300 rounded-full'
-            />
-          </button>
-        );
+      autoplay={true}
+      autoplayInterval={2000}
+      renderCenterLeftControls={() => {
+        return <div className='hidden'></div>;
       }}
-      renderCenterRightControls={(props: ControlProps) => {
-        return (
-          <button
-            aria-label='next'
-            type='button'
-            onClick={() => props.nextSlide()}
-            className='relative -right-10'>
-            <FontAwesomeIcon
-              icon={faAngleRight}
-              className='text-2xl text-neutral-300 rounded-full'
-            />
-          </button>
-        );
+      renderCenterRightControls={() => {
+        return <div className='hidden'></div>;
       }}
       renderBottomCenterControls={(props: ControlProps) => {
         return (
           <ul className='relative flex gap-4 top-10'>
             {menuItems
               .slice(0, menuItems.length - numberToShow + 1)
-              .map((_, index) => (
-                <li key={index}>
+              .map((item, index) => (
+                <li key={item.id}>
                   <button
                     aria-label='next'
                     type='button'
@@ -72,7 +47,9 @@ export function BurgersCarousel() {
       }}
       cellSpacing={20}>
       {menuItems.map(item => (
-        <div className='text-center rounded-xl border-2 border-solid border-neutral-500 min-h-[36rem] grid gap-4 place-items-center'>
+        <div
+          key={item.id}
+          className='text-center rounded-xl border-2 border-solid border-neutral-500 min-h-[36rem] grid gap-4 place-items-center'>
           <h3 className='text-xl font-bold text-neutral-300 pt-8'>
             {item.name}
           </h3>

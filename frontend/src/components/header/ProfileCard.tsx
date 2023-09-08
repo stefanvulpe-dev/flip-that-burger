@@ -19,7 +19,7 @@ export const ProfileCard = forwardRef(function (
   return (
     <div
       ref={ref}
-      className='self-center bg-accent-100 pt-4 pb-48 absolute -bottom-[35rem] sm:-bottom-[30rem] left-0 right-0 transition-position ease-in-out duration-700 [&:not(.active)]:-left-full [&:not(.active)]:right-full md:static md:py-0'>
+      className='self-center bg-accent-100 pt-4 pb-48 absolute -bottom-[35rem] sm:-bottom-[30rem] left-0 right-0 transition-position ease-in-out duration-700 z-[20] [&:not(.active)]:-left-full [&:not(.active)]:right-full md:static md:py-0'>
       <div
         onClick={() => {
           infoRef.current?.classList.toggle('active');
@@ -27,7 +27,7 @@ export const ProfileCard = forwardRef(function (
           setIsInfoActive(!isInfoActive);
         }}
         ref={profileRef}
-        className='relative mx-auto justify-self-center bg-accent-200 [&:not(.active)]:rounded-l-[3rem] [&:is(.active)]:rounded-ss-xl [&:is(.active)]:rounded-ee-none transition-borderRadius duration-500 ease-in-out rounded-r-2xl flex justify-center items-center gap-6 py-2 px-4 w-max cursor-pointer'>
+        className='relative mx-auto justify-self-center bg-accent-200 [&:not(.active)]:rounded-l-[3rem] [&:is(.active)]:rounded-ss-xl [&:is(.active)]:rounded-ee-none transition-borderRadius duration-300 ease-in-out rounded-r-2xl flex justify-center items-center gap-6 py-2 px-4 w-max cursor-pointer'>
         <img
           src='https://i.pravatar.cc/300'
           alt='avatar'
@@ -42,7 +42,7 @@ export const ProfileCard = forwardRef(function (
         />
         <div
           ref={infoRef}
-          className='transition-position duration-500 ease-in-out [&:not(.active)]:-z-[999] [&:not(.active)]:top-0 absolute top-[calc(100%-1px)] left-0 right-0  z-0 py-6 bg-accent-200 rounded-es-xl rounded-ee-xl text-accent-400'>
+          className='transition-visibility duration-400 ease-in absolute top-[calc(100%-1px)] left-0 right-0 [&:not(.active)]:invisible visible py-6 bg-accent-200 rounded-es-xl rounded-ee-xl text-accent-400'>
           <Link to='/profile' className='block mb-6 max-w-[14ch] mx-auto group'>
             <FontAwesomeIcon icon={faUser} className='text-xl pr-4' />
             <span className='border-accent-200 border-b-2 transition-colors group-hover:border-b-2 group-hover:border-accent-400'>
