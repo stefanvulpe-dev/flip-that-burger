@@ -9,7 +9,7 @@ const items = [
 ];
 
 export const NavBar = forwardRef(function (
-  _props,
+  { onLinkClick }: { onLinkClick: () => void },
   ref: ForwardedRef<HTMLElement>,
 ) {
   return (
@@ -21,7 +21,8 @@ export const NavBar = forwardRef(function (
           <li key={item.href} className='py-4'>
             <NavLink
               to={item.href}
-              className='transition-colors border-b-2 border-accent-100 hover:border-b-2 hover:border-accent-400'>
+              className='transition-colors border-b-2 border-accent-100 hover:border-b-2 hover:border-accent-400'
+              onClick={onLinkClick}>
               {item.label}
             </NavLink>
           </li>

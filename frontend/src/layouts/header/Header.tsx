@@ -11,20 +11,22 @@ export function Header() {
   const profileCardRef = useRef<HTMLDivElement>(null);
   const primaryButtonRef = useRef<HTMLDivElement>(null);
 
+  function handleToggle() {
+    navBarRef.current?.classList.toggle('active');
+    profileCardRef.current?.classList.toggle('active');
+    primaryButtonRef.current?.classList.toggle('active');
+    setIsOpen(!isOpen);
+  }
+
   return (
     <header className='bg-accent-100 relative'>
       <FontAwesomeIcon
         icon={isOpen ? faXmark : faBars}
         className='xl:hidden absolute left-10 top-1/2 -translate-x-1/2 -translate-y-1/2 text-accent-400 font-bold text-3xl'
-        onClick={() => {
-          navBarRef.current?.classList.toggle('active');
-          profileCardRef.current?.classList.toggle('active');
-          primaryButtonRef.current?.classList.toggle('active');
-          setIsOpen(!isOpen);
-        }}
+        onClick={handleToggle}
       />
       <div className='w-11/12 max-w-2xl xl:max-w-6xl py-4 grid gap-6 grid-flow-col xl:grid-cols-3 mx-auto'>
-        <NavBar ref={navBarRef} />
+        <NavBar ref={navBarRef} onLinkClick={handleToggle} />
         <div className='justify-self-center w-64 max-w-[80%] flex items-center justify-center sm:justify-between xl:justify-evenly xl:max-w-none xl:w-auto xl:justify-self-auto'>
           <img
             src={chefLogo}
