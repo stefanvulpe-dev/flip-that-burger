@@ -30,7 +30,7 @@ export function PresentationSection({
       </p>
       <Link
         to={link}
-        className='text-accent-400 text-sm md:text-base bg-accent-200 rounded-full px-8 py-4 transition-colors hover:bg-accent-300 md:row-start-4 md:row-end-5 md:self-start'>
+        className='w-5/6 max-w-[15rem] text-accent-400 text-center text-sm lg:text-base bg-accent-200 rounded-full px-8 py-4 transition-colors hover:bg-accent-300 md:row-start-4 md:row-end-5 md:self-start'>
         <FontAwesomeIcon icon={faUsers} className='pr-2'></FontAwesomeIcon>
         {linkText}
       </Link>

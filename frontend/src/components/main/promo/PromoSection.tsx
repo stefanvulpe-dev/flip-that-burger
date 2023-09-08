@@ -30,7 +30,7 @@ export function PromoSection({
       </p>
       <Link
         to='/order'
-        className='text-accent-400 font-semibold bg-accent-200 px-6 py-3 rounded-full md:justify-self-start md:group-last-of-type:justify-self-end transition-colors hover:bg-accent-300'>
+        className='w-4/6 max-w-[15rem] text-center text-accent-400 text-sm lg:text-base font-semibold bg-accent-200 px-4 py-3 rounded-full md:justify-self-start md:group-last-of-type:justify-self-end transition-colors hover:bg-accent-300'>
         <FontAwesomeIcon icon={icon} className='pr-2' />
         {buttonText}
       </Link>
