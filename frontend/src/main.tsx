@@ -10,8 +10,7 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 import { RootLayout } from './layouts/RootLayout.tsx';
-import { About, Menu, PageNotFound } from './pages/';
-import { Contact } from './pages/Contact.tsx';
+import { About, Menu, PageNotFound, Contact, UserProfile } from './pages/';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -21,6 +20,7 @@ const router = createBrowserRouter(
         <Route path='about' element={<About />} />
         <Route path='menu' element={<Menu />} />
         <Route path='contact' element={<Contact />} />
+        <Route path='profile' element={<UserProfile />} />
         <Route path='*' element={<PageNotFound />} />
       </Route>
     </Route>,

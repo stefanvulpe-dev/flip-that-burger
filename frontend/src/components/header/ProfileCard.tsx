@@ -43,7 +43,9 @@ export const ProfileCard = forwardRef(function (
         <div
           ref={infoRef}
           className='transition-visibility duration-400 ease-in absolute top-[calc(100%-1px)] left-0 right-0 [&:not(.active)]:invisible visible py-6 bg-accent-200 rounded-es-xl rounded-ee-xl text-accent-400'>
-          <Link to='/profile' className='block mb-6 max-w-[14ch] mx-auto group'>
+          <Link
+            to='/flip-that-burger/profile'
+            className='block mb-6 max-w-[14ch] mx-auto group'>
             <FontAwesomeIcon icon={faUser} className='text-xl pr-4' />
             <span className='border-accent-200 border-b-2 transition-colors group-hover:border-b-2 group-hover:border-accent-400'>
               Your profile
