@@ -1,10 +1,23 @@
-import { menuCategoris } from '../../data/MenuCategories';
+import { menuCategories } from '../../data/MenuCategories';
 
-export function CategoriesList() {
+export function CategoriesList({
+  activeCategory,
+  onClick,
+}: {
+  activeCategory: string;
+  onClick: (category: string) => void;
+}) {
   return (
-    <ul className='flex justify-between pt-10 pb-10 xl:pb-20'>
-      {menuCategoris.map(category => (
-        <li key={category.label} className='cursor-pointer'>
+    <ul className='flex justify-between my-20'>
+      {menuCategories.map(category => (
+        <li
+          key={category.label}
+          className={
+            (activeCategory === category.label
+              ? 'border-b-2 border-accent-300'
+              : '') + ' cursor-pointer'
+          }
+          onClick={() => onClick(category.label)}>
           <img
             src={category.url}
             alt='menu-logo'

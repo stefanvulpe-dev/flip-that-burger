@@ -4,7 +4,7 @@ import chickenLogo from '../assets/menu/chicken-logo.png';
 import beveragesLogo from '../assets/menu/beverages-logo.png';
 import coffeeLogo from '../assets/menu/coffee-logo.png';
 
-export const menuCategoris = [
+export const menuCategories = [
   {
     label: 'burgers',
     url: burgerLogo,
