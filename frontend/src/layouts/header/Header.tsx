@@ -35,7 +35,7 @@ export function Header() {
           />
           <PrimaryButton text='Online order' ref={primaryButtonRef} />
         </div>
-        <ProfileCard ref={profileCardRef} />
+        <ProfileCard ref={profileCardRef} onClick={handleToggle} />
       </div>
     </header>
   );
