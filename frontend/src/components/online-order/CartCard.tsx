@@ -1,4 +1,4 @@
-import { OrderSummary } from './ORderSummary';
+import { OrderSummary } from './OrderSummary';
 
 export function CartCard() {
   return (
