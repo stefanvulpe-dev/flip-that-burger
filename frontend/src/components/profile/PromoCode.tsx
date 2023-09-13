@@ -10,7 +10,7 @@ export function PromoCode() {
         Enter a gift code
       </h2>
       <Form method='post' className='flex justify-between gap-2'>
-        <label htmlFor='#code' className='hidden'>
+        <label htmlFor='code' className='hidden'>
           Redeem your gift code
         </label>
         <input

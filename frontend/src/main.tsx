@@ -10,7 +10,14 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 import { RootLayout } from './layouts/RootLayout.tsx';
-import { About, Menu, PageNotFound, Contact, UserProfile } from './pages/';
+import {
+  About,
+  Menu,
+  PageNotFound,
+  Contact,
+  UserProfile,
+  EditProfile,
+} from './pages/';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -21,6 +28,7 @@ const router = createBrowserRouter(
         <Route path='menu' element={<Menu />} />
         <Route path='contact' element={<Contact />} />
         <Route path='profile' element={<UserProfile />} />
+        <Route path='edit-profile' element={<EditProfile />} />
         <Route path='*' element={<PageNotFound />} />
       </Route>
     </Route>,
