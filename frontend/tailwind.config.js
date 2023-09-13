@@ -33,6 +33,9 @@ export default {
         'promo-desktop': "url('/src/assets/main/delivery-guy-desktop.png')",
         'hero-desktop': "url('/src/assets/main/circle.svg')",
       },
+      screens: {
+        xs: '500px',
+      },
     },
   },
   plugins: [],

@@ -18,6 +18,13 @@ export function Header() {
     setIsOpen(!isOpen);
   }
 
+  function handleClose() {
+    navBarRef.current?.classList.remove('active');
+    profileCardRef.current?.classList.remove('active');
+    primaryButtonRef.current?.classList.remove('active');
+    setIsOpen(false);
+  }
+
   return (
     <header className='bg-accent-100 relative'>
       <FontAwesomeIcon
@@ -33,9 +40,13 @@ export function Header() {
             alt='chef logo'
             className='max-w-[4rem] rounded-full border-[3px] border-accent-200 p-2 bg-accent-100'
           />
-          <PrimaryButton text='Online order' ref={primaryButtonRef} />
+          <PrimaryButton
+            text='Online order'
+            ref={primaryButtonRef}
+            onClick={handleClose}
+          />
         </div>
-        <ProfileCard ref={profileCardRef} onClick={handleToggle} />
+        <ProfileCard ref={profileCardRef} onClick={handleClose} />
       </div>
     </header>
   );

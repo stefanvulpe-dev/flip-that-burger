@@ -17,6 +17,7 @@ import {
   Contact,
   UserProfile,
   EditProfile,
+  OnlineOrder,
 } from './pages/';
 
 const router = createBrowserRouter(
@@ -29,6 +30,7 @@ const router = createBrowserRouter(
         <Route path='contact' element={<Contact />} />
         <Route path='profile' element={<UserProfile />} />
         <Route path='edit-profile' element={<EditProfile />} />
+        <Route path='online-order' element={<OnlineOrder />} />
         <Route path='*' element={<PageNotFound />} />
       </Route>
     </Route>,
