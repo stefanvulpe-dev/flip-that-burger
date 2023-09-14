@@ -1,5 +1,7 @@
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useWindowSize } from '@uidotdev/usehooks';
-import Carousel from 'nuka-carousel';
+import Carousel, { ControlProps } from 'nuka-carousel';
 import { NavButton } from './NavButton';
 
 export function SectionSlider({
@@ -16,8 +18,12 @@ export function SectionSlider({
       renderCenterLeftControls={() => {
         return <div className='hidden'></div>;
       }}
-      renderCenterRightControls={() => {
-        return <div className='hidden'></div>;
+      renderCenterRightControls={(props: ControlProps) => {
+        return (
+          <div onClick={props.nextSlide}>
+            <FontAwesomeIcon icon={faAngleRight} />
+          </div>
+        );
       }}
       renderBottomCenterControls={() => {
         return <div className='hidden'></div>;

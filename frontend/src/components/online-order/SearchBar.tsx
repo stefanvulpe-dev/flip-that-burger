@@ -14,7 +14,7 @@ export function SearchBar() {
           id='search'
           name='search'
           placeholder='Search in Flip that burger'
-          className='w-full rounded-l-full shadow-2xl py-4 px-4 border-2 border-accent-400 focus:outline-none focus:border-accent-300'
+          className='w-full rounded-l-full shadow-2xl py-4 px-6 border-2 border-accent-400 focus:outline-none focus:border-accent-300'
         />
         <button
           type='submit'
