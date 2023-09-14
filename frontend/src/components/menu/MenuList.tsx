@@ -9,29 +9,29 @@ import {
 import { MenuListItem } from './MenuListItem';
 
 export function MenuList({ category }: { category: string }) {
-  let renderdItems: MenuItem[];
+  let items: MenuItem[];
 
   switch (category) {
     case 'pizzas':
-      renderdItems = pizzas;
+      items = pizzas;
       break;
     case 'chicken':
-      renderdItems = chickenItems;
+      items = chickenItems;
       break;
     case 'beverages':
-      renderdItems = beverages;
+      items = beverages;
       break;
     case 'coffee':
-      renderdItems = coffees;
+      items = coffees;
       break;
     default:
-      renderdItems = menuItems;
+      items = menuItems;
       break;
   }
 
   return (
     <ul className='md:grid md:grid-cols-2 gap-x-10 xl:gap-x-24'>
-      {renderdItems.map(item => (
+      {items.map(item => (
         <MenuListItem key={item.id} item={item} />
       ))}
     </ul>

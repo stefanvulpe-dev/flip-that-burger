@@ -1,72 +1,27 @@
 import {
-  faBurger,
-  faCoffee,
-  faEgg,
-  faGlassWaterDroplet,
-  faPizzaSlice,
-  faTrophy,
-} from '@fortawesome/free-solid-svg-icons';
-import {
-  beverages,
-  chickenItems,
-  coffees,
-  menuItems,
-  pizzas,
-} from '../../data/MenuItems';
-import {
   MenuNavBar,
   MenuSection,
   SearchBar,
   SectionSlider,
 } from '../../components';
-import { useState } from 'react';
+import { menuItems } from '../../data/MenuItems';
+import { MenuSectionReducer } from '../../utils';
+import { useReducer } from 'react';
 import { useWindowSize } from '@uidotdev/usehooks';
+import { faTrophy } from '@fortawesome/free-solid-svg-icons';
 
 export function MenuSectionsControls() {
-  const [activeSection, setActiveSection] = useState('Top sellers');
+  const [state, dispatch] = useReducer(MenuSectionReducer, {
+    element: (
+      <MenuSection title='Top sellers' logo={faTrophy} items={menuItems} />
+    ),
+    activeSection: 'Top sellers',
+  });
+
   const size = useWindowSize();
 
-  let renderedSection: JSX.Element = <></>;
-
   function changeActiveSection(section: string) {
-    setActiveSection(section);
-  }
-
-  switch (activeSection) {
-    case 'Top sellers':
-      renderedSection = (
-        <MenuSection title='Top sellers' logo={faTrophy} items={menuItems} />
-      );
-      break;
-    case 'Burgers':
-      renderedSection = (
-        <MenuSection title='Burgers' logo={faBurger} items={menuItems} />
-      );
-      break;
-    case 'Pizzas':
-      renderedSection = (
-        <MenuSection title='Pizzas' logo={faPizzaSlice} items={pizzas} />
-      );
-      break;
-    case 'Chicken':
-      renderedSection = (
-        <MenuSection title='Chicken' logo={faEgg} items={chickenItems} />
-      );
-      break;
-    case 'Beverages':
-      renderedSection = (
-        <MenuSection
-          title='Beverages'
-          logo={faGlassWaterDroplet}
-          items={beverages}
-        />
-      );
-      break;
-    case 'Coffee':
-      renderedSection = (
-        <MenuSection title='Coffees' logo={faCoffee} items={coffees} />
-      );
-      break;
+    dispatch({ type: section });
   }
 
   return (
@@ -74,17 +29,17 @@ export function MenuSectionsControls() {
       <SearchBar />
       {size.width && size.width < 768 ? (
         <SectionSlider
-          activeSection={activeSection}
+          activeSection={state.activeSection}
           onLinkClick={changeActiveSection}
         />
       ) : (
         <MenuNavBar
-          activeSection={activeSection}
+          activeSection={state.activeSection}
           onLinkClick={changeActiveSection}
         />
       )}
 
-      {renderedSection}
+      {state.element}
     </>
   );
 }
