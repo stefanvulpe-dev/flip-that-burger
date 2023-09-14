@@ -1,4 +1,3 @@
-import { ReactElement } from 'react';
 import {
   faBurger,
   faCoffee,
@@ -7,6 +6,8 @@ import {
   faPizzaSlice,
   faTrophy,
 } from '@fortawesome/free-solid-svg-icons';
+import { ReactElement } from 'react';
+import { MenuSection } from '../components';
 import {
   beverages,
   chickenItems,
@@ -14,7 +15,6 @@ import {
   menuItems,
   pizzas,
 } from '../data/MenuItems';
-import { MenuSection } from '../components';
 
 export function MenuSectionReducer(
   state: { element: ReactElement; activeSection: string },
@@ -24,7 +24,16 @@ export function MenuSectionReducer(
     case 'Top sellers':
       return {
         element: (
-          <MenuSection title='Top sellers' logo={faTrophy} items={menuItems} />
+          <MenuSection
+            title='Top sellers'
+            logo={faTrophy}
+            items={menuItems
+              .filter(item => item.topSeller)
+              .concat(pizzas.filter(item => item.topSeller))
+              .concat(chickenItems.filter(item => item.topSeller))
+              .concat(beverages.filter(item => item.topSeller))
+              .concat(coffees.filter(item => item.topSeller))}
+          />
         ),
         activeSection: action.type,
       };
@@ -60,11 +69,9 @@ export function MenuSectionReducer(
         ),
         activeSection: action.type,
       };
-    case 'Coffees':
+    case 'Coffee':
       return {
-        element: (
-          <MenuSection title='Coffees' logo={faCoffee} items={coffees} />
-        ),
+        element: <MenuSection title='Coffee' logo={faCoffee} items={coffees} />,
         activeSection: action.type,
       };
     default:

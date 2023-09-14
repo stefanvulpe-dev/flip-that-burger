@@ -1,6 +1,6 @@
+import { IconDefinition, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { MenuItem } from '../../data/MenuItems';
-import { IconDefinition, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 export function MenuSection({
   logo,
@@ -29,7 +29,7 @@ export function MenuSection({
             />
             <div className='text-neutral-300'>
               <p className='pb-2 md:text-lg'>{item.name}</p>
-              <p className='text-xs sm:text-sm md:text-base'>
+              <p className='text-xs sm:text-sm'>
                 {item.ingredients.join(', ')}
               </p>
             </div>

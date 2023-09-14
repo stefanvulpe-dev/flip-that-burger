@@ -1,19 +1,34 @@
+import { faTrophy } from '@fortawesome/free-solid-svg-icons';
+import { useWindowSize } from '@uidotdev/usehooks';
+import { useReducer } from 'react';
 import {
   MenuNavBar,
   MenuSection,
   SearchBar,
   SectionSlider,
 } from '../../components';
-import { menuItems } from '../../data/MenuItems';
+import {
+  beverages,
+  chickenItems,
+  coffees,
+  menuItems,
+  pizzas,
+} from '../../data';
 import { MenuSectionReducer } from '../../utils';
-import { useReducer } from 'react';
-import { useWindowSize } from '@uidotdev/usehooks';
-import { faTrophy } from '@fortawesome/free-solid-svg-icons';
 
 export function MenuSectionsControls() {
   const [state, dispatch] = useReducer(MenuSectionReducer, {
     element: (
-      <MenuSection title='Top sellers' logo={faTrophy} items={menuItems} />
+      <MenuSection
+        title='Top sellers'
+        logo={faTrophy}
+        items={menuItems
+          .filter(item => item.topSeller)
+          .concat(pizzas.filter(item => item.topSeller))
+          .concat(chickenItems.filter(item => item.topSeller))
+          .concat(beverages.filter(item => item.topSeller))
+          .concat(coffees.filter(item => item.topSeller))}
+      />
     ),
     activeSection: 'Top sellers',
   });
