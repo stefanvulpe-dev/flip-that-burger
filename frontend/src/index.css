@@ -14,3 +14,30 @@
     @apply border-accent-400;
   }
 }
+
+@layer components {
+  .scroll-container {
+    overflow: auto;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+  }
+
+  /* Style the scrollbar track */
+  .scroll-container::-webkit-scrollbar {
+    width: 6px; /* Adjust the width as needed */
+  }
+
+  /* Style the scrollbar thumb */
+  .scroll-container::-webkit-scrollbar-thumb {
+    background-color: #888; /* Change the color as needed */
+    border-radius: 5px; /* Adjust the radius as needed */
+  }
+
+  /* Move the scrollbar away from the container */
+  .scroll-container::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Change the hover color as needed */
+    border-radius: 5px; /* Adjust the radius as needed */
+    border: 1px solid #777; /* Add a border for a nicer look */
+    padding-left: 1rem; /* Move the scrollbar to the right */
+  }
+}
