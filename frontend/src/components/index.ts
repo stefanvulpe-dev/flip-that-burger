@@ -1,3 +1,5 @@
+export { LoginForm } from './auth/LoginForm';
+export { SignupForm } from './auth/SignupForm';
 export { ContactForm } from './contact/ContactForm';
 export { FormSection } from './contact/FormSection';
 export { OthersSection } from './contact/OthersSection';

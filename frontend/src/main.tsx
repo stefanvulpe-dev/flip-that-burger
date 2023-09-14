@@ -12,12 +12,14 @@ import {
 import { RootLayout } from './layouts/RootLayout.tsx';
 import {
   About,
-  Menu,
-  PageNotFound,
   Contact,
-  UserProfile,
   EditProfile,
+  Login,
+  Menu,
   OnlineOrder,
+  PageNotFound,
+  Signup,
+  UserProfile,
 } from './pages/';
 
 const router = createBrowserRouter(
@@ -31,6 +33,8 @@ const router = createBrowserRouter(
         <Route path='profile' element={<UserProfile />} />
         <Route path='edit-profile' element={<EditProfile />} />
         <Route path='online-order' element={<OnlineOrder />} />
+        <Route path='login' element={<Login />} />
+        <Route path='register' element={<Signup />} />
         <Route path='*' element={<PageNotFound />} />
       </Route>
     </Route>,
