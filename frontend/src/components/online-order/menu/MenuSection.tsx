@@ -1,6 +1,6 @@
 import { IconDefinition, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { MenuItem } from '../../data/MenuItems';
+import { MenuItem } from '../../../data/MenuItems';
 
 export function MenuSection({
   logo,
