@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export function CartItemCard() {
   return (
-    <li className='flex justify-between items-start mb-4 last-of-type:mb-0'>
+    <li className='flex justify-between items-start mb-6 md:mb-10 last-of-type:mb-0'>
       <button
         type='button'
         className='text-accent-200 text-xl font-bold bg-gray-200 p-1 rounded-full transition-colors hover:bg-red-300'>

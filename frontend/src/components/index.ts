@@ -19,6 +19,8 @@ export { BurgerCard } from './main/offers/BurgerCard';
 export { OffersSection } from './main/offers/OffersSection';
 export { PromoSection } from './main/promo/PromoSection';
 export { CartCard } from './online-order/cart/CartCard';
+export { ModalButton } from './online-order/cart/ModalButton';
+export { ModalCart } from './online-order/cart/ModalCart';
 export { PageHeader } from './online-order/header/PageHeader';
 export { MenuNavBar } from './online-order/menu/MenuNavBar';
 export { MenuSection } from './online-order/menu/MenuSection';

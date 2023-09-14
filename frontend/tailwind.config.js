@@ -36,6 +36,9 @@ export default {
       screens: {
         xs: '500px',
       },
+      boxShadow: {
+        '3xl': '0 0 5rem rgba(0, 0, 0, 0.75)',
+      },
     },
   },
   plugins: [],
