@@ -1,9 +1,9 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faFacebook,
   faInstagram,
   faTwitter,
 } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export function SocialLinks() {
   return (
@@ -12,6 +12,7 @@ export function SocialLinks() {
         <a
           href='#'
           className='transition-colors hover:bg-accent-400 hover:text-neutral-300 rounded-full border-2 border-accent-400 px-3 py-2'>
+          <span className='hidden'>Facebook link</span>
           <FontAwesomeIcon icon={faFacebook} />
         </a>
       </li>
@@ -19,6 +20,7 @@ export function SocialLinks() {
         <a
           href='#'
           className='transition-colors hover:bg-accent-400 hover:text-neutral-300 rounded-full border-2 border-accent-400 px-3 py-2'>
+          <span className='hidden'>Instagram link</span>
           <FontAwesomeIcon icon={faInstagram} />
         </a>
       </li>
@@ -26,6 +28,7 @@ export function SocialLinks() {
         <a
           href='#'
           className='transition-colors hover:bg-accent-400 hover:text-neutral-300 rounded-full border-2 border-accent-400 px-3 py-2'>
+          <span className='hidden'>Twitter link</span>
           <FontAwesomeIcon icon={faTwitter} />
         </a>
       </li>

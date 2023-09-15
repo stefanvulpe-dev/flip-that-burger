@@ -13,14 +13,14 @@ export const ProfileCard = forwardRef(function (
   ref: ForwardedRef<HTMLDivElement>,
 ) {
   const infoRef = useRef<HTMLDivElement>(null);
-  const profileRef = useRef<HTMLDivElement>(null);
+  const profileRef = useRef<HTMLButtonElement>(null);
   const [isInfoActive, setIsInfoActive] = useState(false);
 
   return (
     <div
       ref={ref}
       className='self-center justify-self-end xl:justify-self-center bg-accent-100 pt-8 pb-48 absolute -bottom-[40rem] sm:-bottom-[35rem] left-0 right-0 transition-position ease-in-out duration-700 z-[20] [&:not(.active)]:-left-full [&:not(.active)]:right-full md:static md:py-0'>
-      <div
+      <button
         onClick={() => {
           infoRef.current?.classList.toggle('active');
           profileRef.current?.classList.toggle('active');
@@ -65,7 +65,7 @@ export const ProfileCard = forwardRef(function (
             </span>
           </Link>
         </div>
-      </div>
+      </button>
     </div>
   );
 });
