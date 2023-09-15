@@ -1,3 +1,5 @@
+export { ReviewsCarousel } from './about/ReviewsCarousel';
+export { ReviewsSection } from './about/ReviewsSection';
 export { LoginForm } from './auth/LoginForm';
 export { SignupForm } from './auth/SignupForm';
 export { ContactForm } from './contact/ContactForm';
