@@ -1,25 +1,22 @@
 import mongoose from 'mongoose';
-
-export type User = {
-  username: string;
+export interface User {
+  firstName: string;
+  lastName: string;
   email: string;
-  authentication: {
-    password: string;
-    token: string;
-  };
+  username: string;
+  password: string;
   timestamps: {
     createdAt: Date;
     updatedAt: Date;
   };
-};
+}
 
 const UserSchema = new mongoose.Schema<User>({
-  username: { type: String, required: true, unique: true },
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
   email: { type: String, required: true, unique: true },
-  authentication: {
-    password: { type: String, required: true, select: false },
-    token: { type: String, select: false },
-  },
+  username: { type: String, required: true, unique: true },
+  password: { type: String, required: true, select: false },
   timestamps: {
     createdAt: { type: Date, default: Date },
     updatedAt: { type: Date, default: Date },

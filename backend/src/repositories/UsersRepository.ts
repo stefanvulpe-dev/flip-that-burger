@@ -4,6 +4,10 @@ export function getUsers() {
   return UserModel.find();
 }
 
+export function getUserByUsername(username: string) {
+  return UserModel.findOne({ username });
+}
+
 export function getUserByEmail(email: string) {
   return UserModel.findOne({ email });
 }
@@ -16,7 +20,7 @@ export function getUserById(id: string) {
   return UserModel.findById(id);
 }
 
-export function createUser(user: User) {
+export function createUser(user: Record<string, string>) {
   return UserModel.create(user);
 }
 

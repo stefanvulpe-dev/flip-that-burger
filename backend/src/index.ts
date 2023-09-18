@@ -5,21 +5,20 @@ import cors from 'cors';
 import 'dotenv/config';
 import express from 'express';
 import mongoose from 'mongoose';
+import { authRouter } from './routes';
 
 const app = express();
 
 app.use(
   cors({
     credentials: true,
-  })
+  }),
 );
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(compression());
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+app.use(authRouter);
 
 app.listen(5000, () => {
   console.log('Server started on http://localhost:5000');
