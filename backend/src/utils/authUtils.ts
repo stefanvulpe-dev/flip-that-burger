@@ -18,5 +18,7 @@ export function generateAccessToken(userId: Types.ObjectId) {
 }
 
 export function generateRefreshToken(userId: Types.ObjectId) {
-  return jwt.sign({ userId }, process.env.REFRESH_TOKEN_SECRET || 'secret');
+  return jwt.sign({ userId }, process.env.REFRESH_TOKEN_SECRET || 'secret', {
+    expiresIn: '7d',
+  });
 }

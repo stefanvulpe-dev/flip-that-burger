@@ -18,7 +18,10 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(compression());
 
-app.use(authRouter);
+app.use('/auth', authRouter);
+app.use('*', (req, res) => {
+  res.status(404).json({ message: 'Not found' });
+});
 
 app.listen(5000, () => {
   console.log('Server started on http://localhost:5000');
