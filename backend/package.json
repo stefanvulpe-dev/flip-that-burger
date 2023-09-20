@@ -1,10 +1,12 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "type": "module",
+  "description": "flip-that-burger",
+  "main": "src/index.ts",
   "scripts": {
     "dev": "nodemon",
+    "start": "node --no-warnings=ExperimentalWarning --experimental-specifier-resolution=node --loader ts-node/esm src/index.ts",
     "build": "tsc"
   },
   "repository": {
@@ -18,11 +20,14 @@
   },
   "homepage": "https://github.com/stefanvulpe-dev/flip-that-burger#readme",
   "devDependencies": {
+    "@types/node": "^20.6.3",
     "nodemon": "^3.0.1",
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.414.0",
+    "@aws-sdk/s3-request-presigner": "^3.414.0",
     "@types/bcrypt": "^5.0.0",
     "@types/compression": "^1.7.3",
     "@types/cookie-parser": "^1.4.4",
