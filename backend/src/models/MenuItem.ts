@@ -1,6 +1,12 @@
 import mongoose from 'mongoose';
 
-export type Category = 'burger' | 'pizza' | 'coffee' | 'beverage' | 'chicken';
+export type Category =
+  | 'burger'
+  | 'pizza'
+  | 'coffee'
+  | 'beverage'
+  | 'chicken'
+  | 'all';
 
 export type MenuItem = {
   id: mongoose.Schema.Types.ObjectId;

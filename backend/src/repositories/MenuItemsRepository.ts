@@ -8,7 +8,7 @@ export function getAllItems() {
   return MenuItemModel.find();
 }
 
-export function geCategorys(category: Category) {
+export function getCategory(category: Category) {
   return MenuItemModel.find({ category });
 }
 
@@ -16,6 +16,6 @@ export function getNewest(category: Category) {
   return MenuItemModel.find({ category, new: true });
 }
 
-export function getTopSellers(category: Category) {
-  return MenuItemModel.find({ category, topSeller: true });
+export function getTopSellers() {
+  return MenuItemModel.find({ topSeller: true });
 }
