@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import { login, logout, refreshTokens, register } from '../controllers';
+import { AuthController } from '../controllers';
 
 export const authRouter = Router();
 
-authRouter.post('/register', register);
-authRouter.post('/login', login);
-authRouter.post('/refresh-tokens', refreshTokens);
-authRouter.delete('/logout', logout);
+authRouter.post('/register', AuthController.register);
+authRouter.post('/login', AuthController.login);
+authRouter.post('/refresh-tokens', AuthController.refreshTokens);
+authRouter.delete('/logout', AuthController.logout);

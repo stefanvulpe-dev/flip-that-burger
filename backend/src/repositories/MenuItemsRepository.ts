@@ -1,6 +1,6 @@
 import { MenuItemModel } from '../models';
 
-type TItem = 'burger' | 'pizza' | 'coffee' | 'beverage' | 'chicken';
+export type TItem = 'burger' | 'pizza' | 'coffee' | 'beverage' | 'chicken';
 
 export function createItem(item: Record<string, string>) {
   return MenuItemModel.create(item);

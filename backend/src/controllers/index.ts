@@ -1,1 +1,2 @@
-export * from './authentication';
+export * as AuthController from './authentication';
+export * as ItemsController from './items';

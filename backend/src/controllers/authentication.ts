@@ -4,6 +4,7 @@ import {
 } from 'express';
 import * as jwt from 'jsonwebtoken';
 import { z } from 'zod';
+import { fromZodError } from 'zod-validation-error';
 import { TokensRepository, UsersRepository } from '../repositories';
 import {
   CustomRequest,
@@ -74,11 +75,12 @@ export async function register(req: ExpressRequest, res: ExpressResponse) {
     res.status(201).json({ accessToken });
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return res.status(400).json(error.flatten());
+      const validationErrors = fromZodError(error);
+      return res.status(400).json({ message: validationErrors.message });
     } else if (error instanceof Error) {
       return res.status(400).json({ message: error.message });
     } else {
-      return res.sendStatus(400);
+      return res.status(500).json({ message: 'Internal server error' });
     }
   }
 }
@@ -130,11 +132,12 @@ export async function login(req: ExpressRequest, res: ExpressResponse) {
     res.status(201).json({ accessToken });
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return res.status(400).json(error.flatten());
+      const validationErrors = fromZodError(error);
+      return res.status(400).json({ message: validationErrors.message });
     } else if (error instanceof Error) {
       return res.status(400).json({ message: error.message });
     } else {
-      return res.sendStatus(400);
+      return res.status(500).json({ message: 'Internal server error' });
     }
   }
 }
@@ -155,7 +158,7 @@ export async function logout(req: ExpressRequest, res: ExpressResponse) {
     if (error instanceof Error) {
       return res.status(400).json({ message: error.message });
     } else {
-      return res.sendStatus(400);
+      return res.status(500).json({ message: 'Internal server error' });
     }
   }
 }
@@ -192,10 +195,12 @@ export async function refreshTokens(req: ExpressRequest, res: ExpressResponse) {
     });
     res.status(201).json({ accessToken });
   } catch (error) {
-    if (error instanceof Error || error instanceof jwt.TokenExpiredError) {
+    if (error instanceof jwt.JsonWebTokenError) {
       return res.status(401).json({ message: error.message });
+    } else if (error instanceof Error) {
+      return res.status(400).json({ message: error.message });
     } else {
-      return res.sendStatus(400);
+      return res.status(500).json({ message: 'Internal server error' });
     }
   }
 }
@@ -220,10 +225,12 @@ export async function checkAuth(
     req.userId = payload.userId;
     next();
   } catch (error) {
-    if (error instanceof Error || error instanceof jwt.TokenExpiredError) {
+    if (error instanceof jwt.JsonWebTokenError) {
       return res.status(401).json({ message: error.message });
+    } else if (error instanceof Error) {
+      return res.status(400).json({ message: error.message });
     } else {
-      return res.sendStatus(400);
+      return res.status(500).json({ message: 'Internal server error' });
     }
   }
 }

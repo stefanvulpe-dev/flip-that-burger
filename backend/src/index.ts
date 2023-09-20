@@ -5,7 +5,7 @@ import cors from 'cors';
 import 'dotenv/config';
 import express from 'express';
 import mongoose from 'mongoose';
-import { authRouter } from './routes';
+import { authRouter, itemsRouter } from './routes';
 
 const app = express();
 
@@ -19,6 +19,7 @@ app.use(cookieParser());
 app.use(compression());
 
 app.use('/auth', authRouter);
+app.use('/items', itemsRouter);
 app.use('*', (req, res) => {
   res.status(404).json({ message: 'Not found' });
 });
