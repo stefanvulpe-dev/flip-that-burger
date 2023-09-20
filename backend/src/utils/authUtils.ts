@@ -12,7 +12,7 @@ export function comparePassword(password: string, hash: string) {
 }
 
 export function generateAccessToken(userId: Types.ObjectId) {
-  return jwt.sign({ userId }, process.env.ACCES_TOKEN_SECRET || 'secret', {
+  return jwt.sign({ userId }, process.env.ACCESS_TOKEN_SECRET || 'secret', {
     expiresIn: '15m',
   });
 }

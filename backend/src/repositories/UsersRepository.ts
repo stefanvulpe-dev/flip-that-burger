@@ -31,3 +31,11 @@ export function deleteUserById(id: string) {
 export function updateUserById(id: string, user: User) {
   return UserModel.findByIdAndUpdate(id, user);
 }
+
+export function addOrder(userId: string, orderId: string) {
+  return UserModel.findByIdAndUpdate(
+    userId,
+    { $push: { orders: orderId } },
+    { new: true },
+  );
+}

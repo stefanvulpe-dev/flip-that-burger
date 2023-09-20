@@ -5,7 +5,8 @@ import cors from 'cors';
 import 'dotenv/config';
 import express from 'express';
 import mongoose from 'mongoose';
-import { authRouter, itemsRouter } from './routes';
+import { authRouter, itemsRouter, ordersRouter } from './routes';
+import { AuthController } from './controllers';
 
 const app = express();
 
@@ -20,7 +21,8 @@ app.use(compression());
 
 app.use('/auth', authRouter);
 app.use('/items', itemsRouter);
-app.use('*', (req, res) => {
+app.use('/orders', AuthController.checkAuth, ordersRouter);
+app.use('*', (_req, res) => {
   res.status(404).json({ message: 'Resource not found' });
 });
 

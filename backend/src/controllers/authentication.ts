@@ -179,7 +179,7 @@ export async function refreshTokens(req: ExpressRequest, res: ExpressResponse) {
 
     const payload = jwt.verify(
       refreshToken,
-      process.env.REFRESH_TOKEN_SECRET!,
+      process.env.REFRESH_TOKEN_SECRET || 'secret',
     ) as jwt.JwtPayload;
 
     const accessToken = generateAccessToken(payload.userId);
@@ -219,7 +219,7 @@ export async function checkAuth(
 
     const payload = jwt.verify(
       accessToken,
-      process.env.ACCESS_TOKEN_SECRET!,
+      process.env.ACCESS_TOKEN_SECRET || 'secret',
     ) as jwt.JwtPayload;
 
     req.userId = payload.userId;
