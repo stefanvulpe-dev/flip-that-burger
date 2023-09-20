@@ -1,6 +1,4 @@
-import { MenuItemModel } from '../models';
-
-export type TItem = 'burger' | 'pizza' | 'coffee' | 'beverage' | 'chicken';
+import { Category, MenuItemModel } from '../models';
 
 export function createItem(item: Record<string, string>) {
   return MenuItemModel.create(item);
@@ -10,14 +8,14 @@ export function getAllItems() {
   return MenuItemModel.find();
 }
 
-export function getItems(type: TItem) {
-  return MenuItemModel.find({ type });
+export function geCategorys(category: Category) {
+  return MenuItemModel.find({ category });
 }
 
-export function getNewest(type: TItem) {
-  return MenuItemModel.find({ type, new: true });
+export function getNewest(category: Category) {
+  return MenuItemModel.find({ category, new: true });
 }
 
-export function getTopSellers(type: TItem) {
-  return MenuItemModel.find({ type, topSeller: true });
+export function getTopSellers(category: Category) {
+  return MenuItemModel.find({ category, topSeller: true });
 }
