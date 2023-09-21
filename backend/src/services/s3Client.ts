@@ -20,9 +20,11 @@ export const S3 = new S3Client({
   },
 });
 
-export async function uploadFile(file: any) {
+export async function uploadFile(file: Express.Multer.File) {
   try {
-    const buffer = await sharp(file.buffer).resize(500).toBuffer();
+    const buffer = await sharp(file.buffer)
+      .resize(400, 400, { fit: 'cover' })
+      .toBuffer();
     const Key = randomImageName();
 
     await S3.send(

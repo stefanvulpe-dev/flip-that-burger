@@ -2,10 +2,11 @@ import {
   Request as ExpressRequest,
   Response as ExpressResponse,
 } from 'express';
-import * as jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 import { z } from 'zod';
 import { fromZodError } from 'zod-validation-error';
 import { TokensRepository, UsersRepository } from '../repositories';
+import { uploadFile } from '../services/s3Client';
 import {
   CustomRequest,
   comparePassword,
@@ -13,6 +14,7 @@ import {
   generateRefreshToken,
   hashPassword,
 } from '../utils/';
+const { JsonWebTokenError, verify } = jwt;
 
 export async function register(req: ExpressRequest, res: ExpressResponse) {
   try {
@@ -55,11 +57,17 @@ export async function register(req: ExpressRequest, res: ExpressResponse) {
       throw new Error('Email already exists');
     }
 
+    if (!req.file) {
+      throw new Error('Profile picture is required');
+    }
+    const uploadedFile = await uploadFile(req.file);
+
     const hashedPassword = await hashPassword(password);
 
     const user = await UsersRepository.createUser({
       ...req.body,
       password: hashedPassword,
+      image: uploadedFile,
     });
 
     const accessToken = generateAccessToken(user._id);
@@ -177,10 +185,10 @@ export async function refreshTokens(req: ExpressRequest, res: ExpressResponse) {
       throw new Error('Invalid refresh token');
     }
 
-    const payload = jwt.verify(
+    const payload = verify(
       refreshToken,
       process.env.REFRESH_TOKEN_SECRET || 'secret',
-    ) as jwt.JwtPayload;
+    ) as JwtPayload;
 
     const accessToken = generateAccessToken(payload.userId);
     const newRefreshToken = generateRefreshToken(payload.userId);
@@ -195,7 +203,7 @@ export async function refreshTokens(req: ExpressRequest, res: ExpressResponse) {
     });
     res.status(201).json({ accessToken });
   } catch (error) {
-    if (error instanceof jwt.JsonWebTokenError) {
+    if (error instanceof JsonWebTokenError) {
       return res.status(401).json({ message: error.message });
     } else if (error instanceof Error) {
       return res.status(400).json({ message: error.message });
@@ -217,15 +225,15 @@ export async function checkAuth(
       throw new Error('Missing authorization header');
     }
 
-    const payload = jwt.verify(
+    const payload = verify(
       accessToken,
       process.env.ACCESS_TOKEN_SECRET || 'secret',
-    ) as jwt.JwtPayload;
+    ) as JwtPayload;
 
     req.userId = payload.userId;
     next();
   } catch (error) {
-    if (error instanceof jwt.JsonWebTokenError) {
+    if (error instanceof JsonWebTokenError) {
       return res.status(401).json({ message: error.message });
     } else if (error instanceof Error) {
       return res.status(400).json({ message: error.message });

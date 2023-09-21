@@ -3,8 +3,9 @@ import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import 'dotenv/config';
-import express from 'express';
+import express, { Request, Response } from 'express';
 import mongoose from 'mongoose';
+import { MulterError } from 'multer';
 import { AuthController } from './controllers';
 import { authRouter, itemsRouter, ordersRouter, usersRouter } from './routes';
 
@@ -18,13 +19,21 @@ app.use(
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(compression());
-
 app.use('/auth', authRouter);
 app.use('/items', itemsRouter);
 app.use('/orders', AuthController.checkAuth, ordersRouter);
 app.use('/users', AuthController.checkAuth, usersRouter);
-app.use('*', (_req, res) => {
-  res.status(404).json({ message: 'Resource not found' });
+app.use('*', (req: Request, res: Response) => {
+  throw new Error('Resource not found');
+});
+app.use((err: unknown, req: Request, res: Response, next: () => void) => {
+  if (err instanceof MulterError) {
+    return res.status(400).json({ message: err.message });
+  } else if (err instanceof Error) {
+    res.status(404).json({ message: err.message });
+  } else {
+    res.status(500).json({ message: 'Internal server error' });
+  }
 });
 
 app.listen(5000, () => {
