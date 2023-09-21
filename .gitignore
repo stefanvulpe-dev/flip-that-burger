@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 
 frontend/style.css
-backend/.env 
+.env 
