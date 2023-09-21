@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { FormControls, FormGroup, PictureUpload } from '.';
 import { SignUpSchema, TSignUpSchema } from '../../utils';
 
@@ -7,12 +7,12 @@ export function SignUpForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
     reset,
+    formState: { errors, isSubmitting },
   } = useForm<TSignUpSchema>({ resolver: zodResolver(SignUpSchema) });
 
-  const onSubmit = async () => {
-    await new Promise(resolve => setTimeout(resolve, 1000));
+  const onSubmit: SubmitHandler<TSignUpSchema> = data => {
+    console.log(data);
     reset();
   };
 

@@ -1,10 +1,17 @@
 import { useState } from 'react';
+import { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form';
 import { FormGroupProps } from '../../utils';
 
 export function PictureUpload({
   register,
   error,
-}: Pick<FormGroupProps, 'register' | 'error'>) {
+}: {
+  register: FormGroupProps['register'];
+  error:
+    | FieldError
+    | Merge<FieldError, FieldErrorsImpl<FieldError>>
+    | undefined;
+}) {
   const [fileName, setFileName] = useState('Choose a file');
 
   return (
@@ -13,13 +20,17 @@ export function PictureUpload({
         Profile picture
       </label>
       <input
-        {...register('photo')}
         type='file'
-        name='photo'
         id='photo'
+        name='photo'
+        accept='image/png, image/jpeg'
         className='hidden'
         onChange={e => {
-          const fileName = e.target.files?.[0].name || 'Choose a file';
+          if (!e.target.files) return;
+          register('photo', {
+            value: e.target.files[0],
+          });
+          const fileName = e.target.files[0].name || 'Choose a file';
           if (fileName.length <= 20) {
             setFileName(fileName);
           } else {
@@ -36,7 +47,7 @@ export function PictureUpload({
         className={`text-accent-200 text-sm pt-2 ${
           error ? 'visible' : 'invisible'
         }`}>
-        {error?.message}
+        {`${error?.message}`}
       </p>
     </div>
   );
