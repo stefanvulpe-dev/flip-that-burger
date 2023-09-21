@@ -1,11 +1,11 @@
 import { ReactElement } from 'react';
 import {
   EditForm,
-  ProfileSection,
   EmailChangeForm,
   PasswordChangeForm,
-} from '../components';
-import { ProfilePictureWrapper } from '../layouts/edit-profile/ProfilePictureWrapper';
+  ProfileSection,
+} from '../../components';
+import { ProfilePictureWrapper } from '../../layouts';
 
 export function ProfileSectionReducer(
   state: {

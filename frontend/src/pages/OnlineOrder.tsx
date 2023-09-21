@@ -1,7 +1,7 @@
 import { useWindowSize } from '@uidotdev/usehooks';
 import { useRef } from 'react';
 import { CartCard, ModalButton, ModalCart, PageHeader } from '../components';
-import { MenuSectionsControls } from '../layouts/online-order/MenuSectionsControls';
+import { MenuSectionsControls } from '../layouts';
 
 export function OnlineOrder() {
   const size = useWindowSize();

@@ -5,5 +5,5 @@ export { EditProfile } from './EditProfile';
 export { Login } from './Login';
 export { Menu } from './Menu';
 export { OnlineOrder } from './OnlineOrder';
-export { Signup } from './Signup';
+export { SignUp } from './SignUp';
 export { UserProfile } from './UserProfile';

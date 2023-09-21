@@ -1,6 +1,6 @@
 import { useReducer } from 'react';
 import { EditForm, EditProfileNav, ProfileSection } from '../components';
-import { ProfilePictureWrapper } from '../layouts/edit-profile/ProfilePictureWrapper';
+import { ProfilePictureWrapper } from '../layouts';
 import { ProfileSectionReducer } from '../utils';
 
 export function EditProfile() {

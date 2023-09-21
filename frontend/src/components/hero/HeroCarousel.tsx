@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { menuItems } from '../../data/MenuItems';
-import { BurgerArticle } from './BurgerArticle';
-import { CarouselControls } from './CarouselControls';
+import { BurgerArticle, CarouselControls } from './';
 
 export function HeroCarousel() {
   const [selectedIndex, setSelectedIndex] = useState(0);

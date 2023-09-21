@@ -1,15 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App.tsx';
-import './index.css';
-
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
   RouterProvider,
 } from 'react-router-dom';
-import { RootLayout } from './layouts/RootLayout.tsx';
+import App from './App.tsx';
+import './index.css';
+import { RootLayout } from './layouts';
 import {
   About,
   Contact,

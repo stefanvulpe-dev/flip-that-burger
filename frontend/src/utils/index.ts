@@ -1,2 +1,2 @@
-export { MenuSectionReducer } from './MenuSectionReducer';
-export { ProfileSectionReducer } from './ProfileSectionReducer';
+export * from './validation';
+export * from './reducers';

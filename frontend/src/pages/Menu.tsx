@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { CategoriesList } from '../components/menu/CategoriesList';
-import { MenuList } from '../components/menu/MenuList';
+import { CategoriesList, MenuList } from '../components';
 
 export function Menu() {
   const [activeCategory, setActiveCategory] = useState('burgers');

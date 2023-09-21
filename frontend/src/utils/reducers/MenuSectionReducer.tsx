@@ -7,14 +7,14 @@ import {
   faTrophy,
 } from '@fortawesome/free-solid-svg-icons';
 import { ReactElement } from 'react';
-import { MenuSection } from '../components';
+import { MenuSection } from '../../components';
 import {
   beverages,
   chickenItems,
   coffees,
   menuItems,
   pizzas,
-} from '../data/MenuItems';
+} from '../../data/MenuItems';
 
 export function MenuSectionReducer(
   state: { element: ReactElement; activeSection: string },

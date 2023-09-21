@@ -1,5 +1,5 @@
-import { ProfileTitle, ProfileSectionsList } from '../components';
-import { ProfileControls } from '../layouts/profile/ProfileControls';
+import { ProfileSectionsList, ProfileTitle } from '../components';
+import { ProfileControls } from '../layouts';
 
 export function UserProfile() {
   return (

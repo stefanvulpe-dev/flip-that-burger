@@ -1,7 +1,6 @@
-import { PresentationSection, BurgersSection } from '../../components/index';
-import { PromoContainer } from './PromoContainer';
-import { OffersContainer } from './OffersContainer';
 import burgerImage from '../../assets/main/section-burger.png';
+import { BurgersSection, PresentationSection } from '../../components';
+import { OffersContainer, PromoContainer } from './';
 
 export function MainContainer() {
   return (

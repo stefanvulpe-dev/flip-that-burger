@@ -1,4 +1,4 @@
-import { NavBar, PrimaryButton, ProfileCard } from '../../components/index';
+import { NavBar, PrimaryButton, ProfileCard } from '../../components';
 import chefLogo from '../../assets/main/icon-chef.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
