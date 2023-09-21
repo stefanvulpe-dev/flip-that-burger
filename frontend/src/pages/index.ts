@@ -1,9 +1,9 @@
-export { PageNotFound } from './404';
-export { About } from './About';
-export { Contact } from './Contact';
-export { EditProfile } from './EditProfile';
-export { Login } from './Login';
-export { Menu } from './Menu';
-export { OnlineOrder } from './OnlineOrder';
-export { SignUp } from './SignUp';
-export { UserProfile } from './UserProfile';
+export * from './404';
+export * from './About';
+export * from './Contact';
+export * from './EditProfile';
+export * from './Login';
+export * from './Menu';
+export * from './OnlineOrder';
+export * from './SignUp';
+export * from './UserProfile';

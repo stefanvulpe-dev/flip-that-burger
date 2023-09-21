@@ -1,9 +1,9 @@
-import { SignupForm } from '../components';
+import { SignUpForm } from '../components';
 
-export function Signup() {
+export function SignUp() {
   return (
-    <div className='min-h-screen flex justify-center items-center'>
-      <SignupForm />
+    <div className='min-h-screen flex justify-center items-center mt-16 md:mt-auto'>
+      <SignUpForm />
     </div>
   );
 }

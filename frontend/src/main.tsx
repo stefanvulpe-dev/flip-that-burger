@@ -17,9 +17,9 @@ import {
   Menu,
   OnlineOrder,
   PageNotFound,
-  Signup,
+  SignUp,
   UserProfile,
-} from './pages/';
+} from './pages';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -33,7 +33,7 @@ const router = createBrowserRouter(
         <Route path='edit-profile' element={<EditProfile />} />
         <Route path='online-order' element={<OnlineOrder />} />
         <Route path='login' element={<Login />} />
-        <Route path='register' element={<Signup />} />
+        <Route path='register' element={<SignUp />} />
         <Route path='*' element={<PageNotFound />} />
       </Route>
     </Route>,
