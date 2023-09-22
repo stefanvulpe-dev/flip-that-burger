@@ -8,6 +8,7 @@ import { TokensRepository, UsersRepository } from '../repositories';
 import { uploadFile } from '../services/s3Client';
 import {
   CustomRequest,
+  buildError,
   comparePassword,
   generateAccessToken,
   generateRefreshToken,
@@ -53,12 +54,16 @@ export async function register(req: ExpressRequest, res: ExpressResponse) {
     const existingUser = await UsersRepository.getUserByEmail(email);
 
     if (existingUser) {
-      throw new Error('Email already exists');
+      throw buildError('email', 'Email is already registered');
     }
 
     if (!req.file) {
-      throw new Error('Profile picture is required');
+      throw buildError('photo', 'Photo is required');
     }
+    if (!['image/jpg', 'image/jpeg', 'image/png'].includes(req.file.mimetype)) {
+      throw buildError('photo', 'Photo must be in jpg, jpeg or png format');
+    }
+
     const uploadedFile = await uploadFile(req.file);
 
     const hashedPassword = await hashPassword(password);
@@ -88,6 +93,9 @@ export async function register(req: ExpressRequest, res: ExpressResponse) {
       });
       return res.status(400).json(zodErrors);
     } else if (error instanceof Error) {
+      if (error.name) {
+        return res.status(400).json({ [error.name]: error.message });
+      }
       return res.status(400).json({ message: error.message });
     } else {
       return res.status(500).json({ message: 'Internal server error' });
@@ -124,10 +132,13 @@ export async function login(req: ExpressRequest, res: ExpressResponse) {
     ).select('password');
 
     if (!existingUser) {
-      throw new Error('Invalid username');
+      throw buildError('username', 'Invalid username');
     }
 
-    await comparePassword(password, existingUser.password);
+    const result = await comparePassword(password, existingUser.password);
+    if (!result) {
+      throw buildError('password', 'Invalid password');
+    }
 
     const accessToken = generateAccessToken(existingUser._id);
     const refreshToken = generateRefreshToken(existingUser._id);
@@ -148,6 +159,9 @@ export async function login(req: ExpressRequest, res: ExpressResponse) {
       });
       return res.status(400).json(zodErrors);
     } else if (error instanceof Error) {
+      if (error.name) {
+        return res.status(400).json({ [error.name]: error.message });
+      }
       return res.status(400).json({ message: error.message });
     } else {
       return res.status(500).json({ message: 'Internal server error' });
@@ -160,7 +174,7 @@ export async function logout(req: ExpressRequest, res: ExpressResponse) {
     const refreshToken = req.cookies['refreshToken'];
 
     if (!refreshToken) {
-      throw new Error('Refresh token is required');
+      throw buildError('refreshToken', 'Refresh token is required');
     }
 
     await TokensRepository.deleteToken(refreshToken);
@@ -169,6 +183,9 @@ export async function logout(req: ExpressRequest, res: ExpressResponse) {
     res.status(200).json({ message: 'User logged out successfully' });
   } catch (error) {
     if (error instanceof Error) {
+      if (error.name) {
+        return res.status(400).json({ [error.name]: error.message });
+      }
       return res.status(400).json({ message: error.message });
     } else {
       return res.status(500).json({ message: 'Internal server error' });
@@ -181,13 +198,13 @@ export async function refreshTokens(req: ExpressRequest, res: ExpressResponse) {
     const refreshToken = req.cookies['refreshToken'];
 
     if (!refreshToken) {
-      throw new Error('Refresh token is required');
+      throw buildError('refreshToken', 'Refresh token is required');
     }
 
     const existingToken = await TokensRepository.getToken(refreshToken);
 
     if (!existingToken) {
-      throw new Error('Invalid refresh token');
+      throw buildError('refreshToken', 'Invalid refresh token');
     }
 
     const payload = verify(
@@ -209,8 +226,11 @@ export async function refreshTokens(req: ExpressRequest, res: ExpressResponse) {
     res.status(201).json({ accessToken });
   } catch (error) {
     if (error instanceof JsonWebTokenError) {
-      return res.status(401).json({ message: error.message });
+      return res.status(401).json({ refreshToken: error.message });
     } else if (error instanceof Error) {
+      if (error.name) {
+        return res.status(400).json({ [error.name]: error.message });
+      }
       return res.status(400).json({ message: error.message });
     } else {
       return res.status(500).json({ message: 'Internal server error' });
@@ -227,7 +247,7 @@ export async function checkAuth(
     const accessToken = req.headers.authorization?.split(' ')[1];
 
     if (!accessToken) {
-      throw new Error('Missing authorization header');
+      throw buildError('headers', 'Missing authorization header');
     }
 
     const payload = verify(
@@ -239,8 +259,11 @@ export async function checkAuth(
     next();
   } catch (error) {
     if (error instanceof JsonWebTokenError) {
-      return res.status(401).json({ message: error.message });
+      return res.status(401).json({ jwt: error.message });
     } else if (error instanceof Error) {
+      if (error.name) {
+        return res.status(400).json({ [error.name]: error.message });
+      }
       return res.status(400).json({ message: error.message });
     } else {
       return res.status(500).json({ message: 'Internal server error' });

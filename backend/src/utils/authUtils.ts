@@ -23,3 +23,9 @@ export function generateRefreshToken(userId: Types.ObjectId) {
     expiresIn: '7d',
   });
 }
+
+export function buildError(name: string, message: string) {
+  const error = new Error(message);
+  error.name = name;
+  return error;
+}

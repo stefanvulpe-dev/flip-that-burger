@@ -1,6 +1,5 @@
 import { Response } from 'express';
 import { z } from 'zod';
-import { fromZodError } from 'zod-validation-error';
 import { OrdersRepository, UsersRepository } from '../repositories';
 import { CustomRequest } from '../utils';
 
@@ -31,8 +30,11 @@ export async function postCreateOrder(req: CustomRequest, res: Response) {
     return res.status(201).json(newOrder);
   } catch (error) {
     if (error instanceof z.ZodError) {
-      const validationErrors = fromZodError(error);
-      return res.status(400).json({ message: validationErrors.message });
+      let zodErrors = {};
+      error.errors.forEach(err => {
+        zodErrors = { ...zodErrors, [err.path[0]]: err.message };
+      });
+      return res.status(400).json(zodErrors);
     } else if (error instanceof Error) {
       return res.status(400).json({ message: error.message });
     } else {
