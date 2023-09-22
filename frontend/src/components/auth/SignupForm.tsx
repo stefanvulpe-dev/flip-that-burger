@@ -8,6 +8,7 @@ export function SignUpForm() {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<TSignUpSchema>({ resolver: zodResolver(SignUpSchema) });
 
@@ -67,7 +68,11 @@ export function SignUpForm() {
           error={errors.confirmPassword}
           register={register}
         />
-        <PictureUpload register={register} error={errors.photo} />
+        <PictureUpload
+          register={register}
+          setValue={setValue}
+          error={errors.photo}
+        />
         <FormControls isSubmitting={isSubmitting} />
       </form>
     </div>

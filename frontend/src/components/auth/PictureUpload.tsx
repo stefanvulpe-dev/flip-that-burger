@@ -1,12 +1,19 @@
 import { useState } from 'react';
-import { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form';
-import { FormGroupProps } from '../../utils';
+import {
+  FieldError,
+  FieldErrorsImpl,
+  Merge,
+  UseFormSetValue,
+} from 'react-hook-form';
+import { FormGroupProps, TSignUpSchema } from '../../utils';
 
 export function PictureUpload({
   register,
+  setValue,
   error,
 }: {
   register: FormGroupProps['register'];
+  setValue: UseFormSetValue<TSignUpSchema>;
   error:
     | FieldError
     | Merge<FieldError, FieldErrorsImpl<FieldError>>
@@ -20,22 +27,20 @@ export function PictureUpload({
         Profile picture
       </label>
       <input
+        {...register('photo')}
         type='file'
         id='photo'
-        name='photo'
         accept='image/png, image/jpeg'
         className='hidden'
         onChange={e => {
           if (!e.target.files) return;
-          register('photo', {
-            value: e.target.files[0],
-          });
           const fileName = e.target.files[0].name || 'Choose a file';
           if (fileName.length <= 20) {
             setFileName(fileName);
           } else {
             setFileName(fileName.slice(0, 20) + '...' + fileName.slice(-8));
           }
+          setValue('photo', e.target.files[0]);
         }}
       />
       <label

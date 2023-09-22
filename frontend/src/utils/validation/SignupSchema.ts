@@ -12,8 +12,20 @@ const isValidFileSize = (file: File): boolean => {
 
 export const SignUpSchema = z
   .object({
-    firstName: z.string().nonempty({ message: 'First name cannot be empty' }),
-    lastName: z.string().nonempty({ message: 'Last name cannot be empty' }),
+    firstName: z
+      .string({
+        invalid_type_error: 'Invalid type',
+      })
+      .nonempty({
+        message: 'This field is required',
+      }),
+    lastName: z
+      .string({
+        invalid_type_error: 'Invalid type',
+      })
+      .nonempty({
+        message: 'This field is required',
+      }),
     email: z.string().email({
       message: 'Invalid email',
     }),
@@ -46,23 +58,17 @@ export const SignUpSchema = z
         },
       ),
     photo: z
-      .custom(value => {
-        return new Promise((resolve, reject) => {
-          if (value instanceof File) {
-            if (!isValidMimeType(value)) {
-              reject('Invalid file type. Only jpg, png, and jpeg are allowed.');
-            }
-            if (!isValidFileSize(value)) {
-              reject('File size exceeds 5MB.');
-            }
-            resolve(value);
-          } else {
-            reject('Invalid file.');
-          }
-        });
+      .instanceof(File, {
+        message: 'Please upload an image file',
       })
-      .optional(),
+      .refine(file => isValidMimeType(file), {
+        message: 'Invalid file type. Accepted file types are jpg, jpeg and png',
+      })
+      .refine(file => isValidFileSize(file), {
+        message: 'File size must be less than 5MB',
+      }),
   })
+  .required()
   .refine(data => data.password === data.confirmPassword, {
     message: 'Passwords do not match',
     path: ['confirmPassword'],
