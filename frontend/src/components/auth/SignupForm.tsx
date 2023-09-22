@@ -12,7 +12,7 @@ export function SignUpForm() {
     formState: { errors, isSubmitting },
   } = useForm<TSignUpSchema>({ resolver: zodResolver(SignUpSchema) });
 
-  const onSubmit: SubmitHandler<TSignUpSchema> = data => {
+  const onSubmit: SubmitHandler<TSignUpSchema> = (data: TSignUpSchema) => {
     console.log(data);
     reset();
   };
@@ -73,7 +73,7 @@ export function SignUpForm() {
           setValue={setValue}
           error={errors.photo}
         />
-        <FormControls isSubmitting={isSubmitting} />
+        <FormControls parentForm='signup' isSubmitting={isSubmitting} />
       </form>
     </div>
   );
