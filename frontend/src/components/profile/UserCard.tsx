@@ -39,7 +39,7 @@ export function UserCard() {
         </p>
       </div>
       <Link
-        to='/flip-that-burger/edit-profile'
+        to='edit-profile'
         className='block text-accent-400 text-center font-semibold text-sm md:text-base bg-accent-200 py-3 rounded-lg transition-colors hover:bg-accent-300'>
         <FontAwesomeIcon icon={faEdit} className='pr-2' />
         Edit Profile

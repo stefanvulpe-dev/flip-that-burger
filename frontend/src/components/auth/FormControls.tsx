@@ -16,7 +16,7 @@ export function FormControls({
         {parentForm === 'signup' ? (
           <>
             <Link
-              to='/flip-that-burger/login'
+              to='/login'
               className='block w-full text-center bg-accent-200 text-accent-400 rounded py-3 transition-colors hover:bg-accent-300'>
               Log in
             </Link>
@@ -36,7 +36,7 @@ export function FormControls({
               Log in
             </button>
             <Link
-              to='/flip-that-burger/register'
+              to='/register'
               className='block w-full text-center bg-accent-200 text-accent-400 rounded py-3 transition-colors hover:bg-accent-300'>
               Register
             </Link>

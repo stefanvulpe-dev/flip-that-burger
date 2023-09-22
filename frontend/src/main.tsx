@@ -20,22 +20,23 @@ import {
   SignUp,
   UserProfile,
 } from './pages';
+import { RequireAuth } from './components/index.ts';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route element={<RootLayout />}>
-      <Route path='/flip-that-burger'>
-        <Route index element={<App />} />
-        <Route path='about' element={<About />} />
-        <Route path='menu' element={<Menu />} />
-        <Route path='contact' element={<Contact />} />
+    <Route path='/' element={<RootLayout />}>
+      <Route index element={<App />} />
+      <Route path='about' element={<About />} />
+      <Route path='menu' element={<Menu />} />
+      <Route path='contact' element={<Contact />} />
+      <Route element={<RequireAuth />}>
         <Route path='profile' element={<UserProfile />} />
         <Route path='edit-profile' element={<EditProfile />} />
         <Route path='online-order' element={<OnlineOrder />} />
-        <Route path='login' element={<Login />} />
-        <Route path='register' element={<SignUp />} />
-        <Route path='*' element={<PageNotFound />} />
       </Route>
+      <Route path='login' element={<Login />} />
+      <Route path='register' element={<SignUp />} />
+      <Route path='*' element={<PageNotFound />} />
     </Route>,
   ),
 );

@@ -11,7 +11,7 @@ export function MainContainer() {
         description='Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iusto,
         consectetur! Similique optio corporis quos expedita dignissimos iusto
         inventore iste adipisci.'
-        link='/flip-that-burger/about'
+        link='about'
         linkText='More about us'
         image={burgerImage}
       />

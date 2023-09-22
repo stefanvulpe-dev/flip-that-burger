@@ -2,10 +2,10 @@ import { ForwardedRef, forwardRef } from 'react';
 import { NavLink } from 'react-router-dom';
 
 const items = [
-  { label: 'Home', href: '/flip-that-burger/' },
-  { label: 'Menu', href: '/flip-that-burger/menu' },
-  { label: 'About', href: '/flip-that-burger/about' },
-  { label: 'Contact', href: '/flip-that-burger/contact' },
+  { label: 'Home', href: '/' },
+  { label: 'Menu', href: '/menu' },
+  { label: 'About', href: '/about' },
+  { label: 'Contact', href: '/contact' },
 ];
 
 export const NavBar = forwardRef(function (

@@ -1,7 +1,7 @@
 import { faEllipsis, faSquareXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
-import { useWindowWidth } from '../../hooks/WindowWidth';
+import { useWindowWidth } from '../../hooks';
 
 export function EditProfileNav({
   activeSection,
