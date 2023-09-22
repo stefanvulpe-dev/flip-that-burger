@@ -2,7 +2,7 @@ import {
   Request as ExpressRequest,
   Response as ExpressResponse,
 } from 'express';
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import jwt, { JwtPayload, TokenExpiredError } from 'jsonwebtoken';
 import { z } from 'zod';
 import { TokensRepository, UsersRepository } from '../repositories';
 import { uploadFile } from '../services/s3Client';
@@ -225,7 +225,9 @@ export async function refreshTokens(req: ExpressRequest, res: ExpressResponse) {
     });
     res.status(201).json({ accessToken });
   } catch (error) {
-    if (error instanceof JsonWebTokenError) {
+    if (error instanceof TokenExpiredError) {
+      return res.status(403).json({ refreshToken: error.message });
+    } else if (error instanceof JsonWebTokenError) {
       return res.status(401).json({ refreshToken: error.message });
     } else if (error instanceof Error) {
       if (error.name) {
@@ -258,7 +260,9 @@ export async function checkAuth(
     req.userId = payload.userId;
     next();
   } catch (error) {
-    if (error instanceof JsonWebTokenError) {
+    if (error instanceof TokenExpiredError) {
+      return res.status(403).json({ jwt: error.message });
+    } else if (error instanceof JsonWebTokenError) {
       return res.status(401).json({ jwt: error.message });
     } else if (error instanceof Error) {
       if (error.name) {
