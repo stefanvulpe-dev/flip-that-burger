@@ -4,7 +4,6 @@ import {
 } from 'express';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { z } from 'zod';
-import { fromZodError } from 'zod-validation-error';
 import { TokensRepository, UsersRepository } from '../repositories';
 import { uploadFile } from '../services/s3Client';
 import {
@@ -83,8 +82,11 @@ export async function register(req: ExpressRequest, res: ExpressResponse) {
     res.status(201).json({ accessToken });
   } catch (error) {
     if (error instanceof z.ZodError) {
-      const validationErrors = fromZodError(error);
-      return res.status(400).json({ message: validationErrors.message });
+      let zodErrors = {};
+      error.errors.forEach(err => {
+        zodErrors = { ...zodErrors, [err.path[0]]: err.message };
+      });
+      return res.status(400).json(zodErrors);
     } else if (error instanceof Error) {
       return res.status(400).json({ message: error.message });
     } else {
@@ -140,8 +142,11 @@ export async function login(req: ExpressRequest, res: ExpressResponse) {
     res.status(201).json({ accessToken });
   } catch (error) {
     if (error instanceof z.ZodError) {
-      const validationErrors = fromZodError(error);
-      return res.status(400).json({ message: validationErrors.message });
+      let zodErrors = {};
+      error.errors.forEach(err => {
+        zodErrors = { ...zodErrors, [err.path[0]]: err.message };
+      });
+      return res.status(400).json(zodErrors);
     } else if (error instanceof Error) {
       return res.status(400).json({ message: error.message });
     } else {
