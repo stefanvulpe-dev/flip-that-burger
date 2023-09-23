@@ -13,3 +13,11 @@ export type FormGroupProps = {
   error: FieldError | undefined;
   register: UseFormRegister<TSignUpSchema> | UseFormRegister<TLoginSchema>;
 };
+
+export type RequestConfig = {
+  url: string;
+  method: 'get' | 'post' | 'put' | 'delete';
+  headers: Record<string, string>;
+  data?: Record<string, unknown>;
+  params?: URLSearchParams;
+};
