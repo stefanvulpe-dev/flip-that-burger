@@ -36,6 +36,10 @@ export function SelectFavourite({
             ...provided,
             border: '2px solid hsl(0, 0%, 45%)',
             borderRadius: '0.25rem',
+            ':focus-within': {
+              outline: 'none',
+              border: '2px solid hsl(26, 99%, 54%)',
+            },
           }),
           valueContainer: provided => ({
             ...provided,
