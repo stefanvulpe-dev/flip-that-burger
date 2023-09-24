@@ -12,7 +12,7 @@ export function PictureUpload({
   setValue,
   error,
 }: {
-  register: FormGroupProps['register'];
+  register: FormGroupProps<TSignUpSchema>['register'];
   setValue: UseFormSetValue<TSignUpSchema>;
   error:
     | FieldError

@@ -26,6 +26,20 @@ export const SignUpSchema = z
       .nonempty({
         message: 'This field is required',
       }),
+    favouriteRestaurant: z
+      .string({
+        invalid_type_error: 'Invalid type',
+      })
+      .nonempty({
+        message: 'This field is required',
+      }),
+    phone: z
+      .string({
+        required_error: 'Phone number is required',
+      })
+      .regex(/^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/, {
+        message: 'Invalid phone number',
+      }),
     email: z.string().email({
       message: 'Invalid email',
     }),

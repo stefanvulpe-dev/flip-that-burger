@@ -26,14 +26,14 @@ export function LoginForm() {
       <form
         className='max-w-sm grid gap-y-4 mx-auto'
         onSubmit={handleSubmit(onSubmit)}>
-        <FormGroup
+        <FormGroup<TLoginSchema>
           id='username'
           label='Username'
           type='text'
           register={register}
           error={errors.username}
         />
-        <FormGroup
+        <FormGroup<TLoginSchema>
           id='password'
           label='Password'
           type='password'
