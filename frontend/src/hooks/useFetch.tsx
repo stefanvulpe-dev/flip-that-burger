@@ -1,10 +1,9 @@
-import { AxiosRequestConfig } from 'axios';
 import { RequestConfig } from '../utils';
 import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAxios } from '.';
 
-export function useFetch<T>(config: AxiosRequestConfig<RequestConfig>) {
+export function useFetch<T>(config: RequestConfig) {
   const axiosPrivate = useAxios();
   const navigate = useNavigate();
   const location = useLocation();

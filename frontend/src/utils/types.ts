@@ -21,3 +21,26 @@ export type RequestConfig = {
   data?: Record<string, unknown>;
   params?: URLSearchParams;
 };
+
+export type OrderItem = {
+  item: string;
+  quantity: number;
+};
+
+export type Order = {
+  items: OrderItem[];
+  total: number;
+  timestamps: {
+    createdAt: Date;
+  };
+};
+
+export type User = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  image: string;
+  phone: string;
+  favouriteRestaurant: string;
+  orders: Order[];
+};
