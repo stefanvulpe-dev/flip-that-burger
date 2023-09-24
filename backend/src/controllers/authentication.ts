@@ -2,52 +2,32 @@ import {
   Request as ExpressRequest,
   Response as ExpressResponse,
 } from 'express';
-import jwt, { JwtPayload, TokenExpiredError } from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 import { z } from 'zod';
 import { TokensRepository, UsersRepository } from '../repositories';
 import { uploadFile } from '../services/s3Client';
 import {
   CustomRequest,
+  UserLoginSchema,
+  UserRegisterSchema,
   buildError,
   comparePassword,
   generateAccessToken,
   generateRefreshToken,
   hashPassword,
 } from '../utils/';
-const { JsonWebTokenError, verify } = jwt;
+const { TokenExpiredError, JsonWebTokenError, verify } = jwt;
 
 export async function register(req: ExpressRequest, res: ExpressResponse) {
   try {
-    const User = z.object({
-      firstName: z.string({
-        required_error: 'First name is required',
-        invalid_type_error: 'First name must be a string',
-      }),
-      lastName: z.string({
-        required_error: 'Last name is required',
-        invalid_type_error: 'Last name must be a string',
-      }),
-      email: z.string().email({
-        message: 'Invalid email',
-      }),
-      username: z
-        .string()
-        .regex(/^[a-zA-Z]+[a-zA-Z0-9]*(?:[._][a-zA-Z0-9]+)?$/i, {
-          message:
-            'Username must be between 8 to 18 characters long and can only contain letters, numbers, underscores and dots',
-        }),
-      password: z
-        .string()
-        .regex(
-          /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@#$%^&(){}[\]:;<>,.?/~_+\-=|\\]).{8,32}$/,
-          {
-            message:
-              'Password must be between 8 to 32 characters long and contain at least one number, one lowercase letter, one uppercase letter and one special character',
-          },
-        ),
-    });
+    if (!req.file) {
+      throw buildError('photo', 'Photo is required');
+    }
+    if (!['image/jpg', 'image/jpeg', 'image/png'].includes(req.file.mimetype)) {
+      throw buildError('photo', 'Photo must be in jpg, jpeg or png format');
+    }
 
-    User.parse(req.body);
+    UserRegisterSchema.parse(req.body);
 
     const { email, password } = req.body;
 
@@ -55,13 +35,6 @@ export async function register(req: ExpressRequest, res: ExpressResponse) {
 
     if (existingUser) {
       throw buildError('email', 'Email is already registered');
-    }
-
-    if (!req.file) {
-      throw buildError('photo', 'Photo is required');
-    }
-    if (!['image/jpg', 'image/jpeg', 'image/png'].includes(req.file.mimetype)) {
-      throw buildError('photo', 'Photo must be in jpg, jpeg or png format');
     }
 
     const uploadedFile = await uploadFile(req.file);
@@ -105,25 +78,7 @@ export async function register(req: ExpressRequest, res: ExpressResponse) {
 
 export async function login(req: ExpressRequest, res: ExpressResponse) {
   try {
-    const User = z.object({
-      username: z
-        .string()
-        .regex(/^[a-zA-Z]+[a-zA-Z0-9]*(?:[._][a-zA-Z0-9]+)?$/i, {
-          message:
-            'Username must be between 8 to 18 characters long and can only contain letters, numbers, underscores and dots',
-        }),
-      password: z
-        .string()
-        .regex(
-          /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@#$%^&(){}[\]:;<>,.?/~_+\-=|\\]).{8,32}$/,
-          {
-            message:
-              'Password must be between 8 to 32 characters long and contain at least one number, one lowercase letter, one uppercase letter and one special character',
-          },
-        ),
-    });
-
-    User.parse(req.body);
+    UserLoginSchema.parse(req.body);
 
     const { username, password } = req.body;
 

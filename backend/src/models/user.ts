@@ -7,6 +7,7 @@ export interface User {
   password: string;
   image: string;
   favouriteRestaurant: string;
+  phone: string;
   orders: mongoose.Schema.Types.ObjectId[];
   timestamps: {
     createdAt: Date;
@@ -23,6 +24,7 @@ const UserSchema = new mongoose.Schema<User>({
   orders: { type: [mongoose.Schema.Types.ObjectId], ref: 'Order', default: [] },
   image: { type: String, default: '' },
   favouriteRestaurant: { type: String, default: 'Iasi, RO' },
+  phone: { type: String },
   timestamps: {
     createdAt: { type: Date, default: Date },
     updatedAt: { type: Date, default: Date },
