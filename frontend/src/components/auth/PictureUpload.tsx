@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   FieldError,
   FieldErrorsImpl,
@@ -8,10 +7,14 @@ import {
 import { FormGroupProps, TSignUpSchema } from '../../utils';
 
 export function PictureUpload({
+  fileName,
+  setFileName,
   register,
   setValue,
   error,
 }: {
+  fileName: string;
+  setFileName: React.Dispatch<React.SetStateAction<string>>;
   register: FormGroupProps<TSignUpSchema>['register'];
   setValue: UseFormSetValue<TSignUpSchema>;
   error:
@@ -19,8 +22,6 @@ export function PictureUpload({
     | Merge<FieldError, FieldErrorsImpl<FieldError>>
     | undefined;
 }) {
-  const [fileName, setFileName] = useState('Choose a file');
-
   return (
     <div>
       <label className='block pb-3' htmlFor='photo'>
@@ -45,7 +46,8 @@ export function PictureUpload({
       />
       <label
         htmlFor='photo'
-        className='relative block w-full px-4 py-2 border-2 border-neutral-500 rounded focus:outline-none focus:border-accent-300 cursor-pointer after:absolute after:content-[url("/src/assets/signup/open-folder.svg")] after:top-1/2 after:-translate-y-1/2 after:right-4'>
+        className='relative block w-full px-4 py-2 border-2 border-neutral-500 rounded focus:outline-none focus:border-accent-300 cursor-pointer after:absolute after:content-[url("/src/assets/signup/open-folder.svg")] after:top-1/2 after:-translate-y-1/2 after:right-4 '
+        tabIndex={0}>
         {fileName}
       </label>
       <p

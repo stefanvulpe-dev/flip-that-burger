@@ -2,8 +2,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { FormControls, FormGroup, PictureUpload, SelectFavourite } from '.';
 import { SignUpSchema, TSignUpSchema } from '../../utils';
+import { useState } from 'react';
 
 export function SignUpForm() {
+  const [fileName, setFileName] = useState('Choose a file');
+  const [selectedOption, setSelectedOption] = useState({
+    value: '',
+    label: 'Select...',
+  });
   const {
     register,
     handleSubmit,
@@ -15,6 +21,8 @@ export function SignUpForm() {
   const onSubmit: SubmitHandler<TSignUpSchema> = (data: TSignUpSchema) => {
     console.log(data);
     reset();
+    setFileName('Choose a file');
+    setSelectedOption({ value: '', label: 'Select...' });
   };
 
   return (
@@ -52,6 +60,8 @@ export function SignUpForm() {
           label='Favourite restaurant'
           error={errors.favouriteRestaurant}
           setValue={setValue}
+          selectedOption={selectedOption}
+          setSelectedOption={setSelectedOption}
         />
         <FormGroup<TSignUpSchema>
           id='email'
@@ -82,6 +92,8 @@ export function SignUpForm() {
           register={register}
         />
         <PictureUpload
+          fileName={fileName}
+          setFileName={setFileName}
           register={register}
           setValue={setValue}
           error={errors.photo}

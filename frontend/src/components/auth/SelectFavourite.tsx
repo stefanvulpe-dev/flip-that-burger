@@ -6,11 +6,17 @@ export function SelectFavourite({
   id,
   label,
   error,
+  selectedOption,
+  setSelectedOption,
   setValue,
 }: {
   id: keyof TSignUpSchema;
   label: string;
   error: FormGroupProps<TSignUpSchema>['error'];
+  selectedOption: { value: string; label: string };
+  setSelectedOption: React.Dispatch<
+    React.SetStateAction<{ value: string; label: string }>
+  >;
   setValue: UseFormSetValue<TSignUpSchema>;
 }) {
   const options = [
@@ -29,8 +35,12 @@ export function SelectFavourite({
       <Select
         id={id}
         name={id}
+        value={selectedOption}
         options={options}
-        onChange={e => setValue(id, e?.value || '')}
+        onChange={e => {
+          setSelectedOption({ value: e?.value || '', label: e?.label || '' });
+          setValue(id, e?.value || '');
+        }}
         styles={{
           control: provided => ({
             ...provided,
