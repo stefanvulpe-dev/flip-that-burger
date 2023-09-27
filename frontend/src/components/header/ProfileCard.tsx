@@ -5,8 +5,20 @@ import {
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useQuery } from '@tanstack/react-query';
 import { ForwardedRef, forwardRef, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useAxios } from '../../hooks';
+import defaultPicture from '../assets/user/default-user.png';
+
+type ProfileCardData = {
+  username: string;
+  photo: string;
+};
+
+type ProfileCardError = {
+  profileCard: string;
+};
 
 export const ProfileCard = forwardRef(function (
   { onClick }: { onClick: () => void },
@@ -14,7 +26,31 @@ export const ProfileCard = forwardRef(function (
 ) {
   const infoRef = useRef<HTMLDivElement>(null);
   const profileRef = useRef<HTMLButtonElement>(null);
+
   const [isInfoActive, setIsInfoActive] = useState(false);
+
+  const axiosPrivate = useAxios();
+
+  const { data, status, error } = useQuery<
+    ProfileCardData | ProfileCardError,
+    Error,
+    ProfileCardData | ProfileCardError
+  >(['card-details'], {
+    queryFn: async () => {
+      const response = await axiosPrivate.get<
+        ProfileCardData | ProfileCardError
+      >('/users/card-details', {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      return response.data;
+    },
+  });
+
+  if (status === 'error') {
+    console.log(error?.message);
+  }
 
   return (
     <div
@@ -29,13 +65,28 @@ export const ProfileCard = forwardRef(function (
         ref={profileRef}
         className='relative mx-auto justify-self-center bg-accent-200 [&:not(.active)]:rounded-l-[3rem] [&:is(.active)]:rounded-ss-xl [&:is(.active)]:rounded-ee-none transition-borderRadius duration-300 ease-in-out rounded-r-2xl flex justify-center items-center gap-6 py-2 px-4 w-max cursor-pointer'>
         <img
-          src='https://i.pravatar.cc/300'
+          src={
+            status === 'loading' || status === 'error'
+              ? defaultPicture
+              : (data as ProfileCardData).photo
+          }
           alt='avatar'
           className='max-w-[3.5rem] border-4 border-accent-400 rounded-full object-contain'
         />
-        <p className='text-accent-400 text-base xl:text-lg font-semibold border-accent-200 border-b-2 transition-colors hover:border-b-2 hover:border-accent-400'>
-          John Doeeeeeeee
-        </p>
+        {status === 'loading' || status === 'error' ? (
+          <Link
+            to='/login'
+            className='block max-w-[14ch] mx-auto group'
+            onClick={onClick}>
+            <span className='border-accent-200 border-b-2 transition-colors group-hover:border-b-2 group-hover:border-accent-400'>
+              Log in
+            </span>
+          </Link>
+        ) : (
+          <p className='text-accent-400 text-base xl:text-lg font-semibold border-accent-200 border-b-2 transition-colors hover:border-b-2 hover:border-accent-400'>
+            {(data as ProfileCardData).username}
+          </p>
+        )}
         <FontAwesomeIcon
           icon={isInfoActive ? faClose : faBraille}
           className='text-lg text-accent-400'

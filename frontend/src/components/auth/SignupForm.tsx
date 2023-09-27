@@ -3,8 +3,14 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { FormControls, FormGroup, PictureUpload, SelectFavourite } from '.';
 import { SignUpSchema, TSignUpSchema } from '../../utils';
 import { useState } from 'react';
+import { useAxios } from '../../hooks';
+import { useMutation } from '@tanstack/react-query';
+import { AxiosResponse } from 'axios';
+import { useLocation, useNavigate } from 'react-router';
 
 export function SignUpForm() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [fileName, setFileName] = useState('Choose a file');
   const [selectedOption, setSelectedOption] = useState({
     value: '',
@@ -18,12 +24,44 @@ export function SignUpForm() {
     formState: { errors, isSubmitting },
   } = useForm<TSignUpSchema>({ resolver: zodResolver(SignUpSchema) });
 
-  const onSubmit: SubmitHandler<TSignUpSchema> = (data: TSignUpSchema) => {
-    console.log(data);
+  const axiosPrivate = useAxios();
+
+  const { status, error, mutate } = useMutation<
+    AxiosResponse<Record<string, string>>,
+    Error,
+    FormData
+  >({
+    mutationFn: async newUser => {
+      return axiosPrivate.post('/auth/register', newUser);
+    },
+  });
+
+  const onSubmit: SubmitHandler<TSignUpSchema> = async (
+    data: TSignUpSchema,
+  ) => {
+    const formData = new FormData();
+    formData.append('firstName', data.firstName);
+    formData.append('lastName', data.lastName);
+    formData.append('phone', data.phone);
+    formData.append('favouriteRestaurant', data.favouriteRestaurant);
+    formData.append('email', data.email);
+    formData.append('username', data.username);
+    formData.append('password', data.password);
+    formData.append('photo', data.photo);
+    mutate(formData);
     reset();
     setFileName('Choose a file');
     setSelectedOption({ value: '', label: 'Select...' });
+    navigate('/', { state: { from: location }, replace: true });
   };
+
+  if (status === 'loading') {
+    return <div>Loading...</div>;
+  }
+
+  if (status === 'error') {
+    return <div>{error?.message}</div>;
+  }
 
   return (
     <div className='py-8 px-6 rounded shadow-2xl w-11/12 max-w-md md:max-w-4xl'>
