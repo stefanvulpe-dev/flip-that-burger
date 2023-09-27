@@ -23,10 +23,10 @@ app.use('/auth', authRouter);
 app.use('/items', itemsRouter);
 app.use('/orders', AuthController.checkAuth, ordersRouter);
 app.use('/users', AuthController.checkAuth, usersRouter);
-app.use('*', (req: Request, res: Response) => {
+app.use('*', (_req: Request) => {
   throw new Error('Resource not found');
 });
-app.use((err: unknown, req: Request, res: Response, next: () => void) => {
+app.use((err: unknown, _req: Request, res: Response, next: () => void) => {
   if (err instanceof MulterError) {
     return res.status(400).json({ message: err.message });
   } else if (err instanceof Error) {
