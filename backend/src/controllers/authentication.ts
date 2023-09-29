@@ -5,7 +5,7 @@ import {
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { z } from 'zod';
 import { TokensRepository, UsersRepository } from '../repositories';
-import { uploadFile } from '../services/s3Client';
+import { getFile, uploadFile } from '../services/s3Client';
 import {
   CustomRequest,
   UserLoginSchema,
@@ -38,6 +38,7 @@ export async function register(req: ExpressRequest, res: ExpressResponse) {
     }
 
     const uploadedFile = await uploadFile(req.file);
+    const photo = await getFile(uploadedFile);
 
     const hashedPassword = await hashPassword(password);
 
@@ -57,7 +58,7 @@ export async function register(req: ExpressRequest, res: ExpressResponse) {
       path: '/auth',
       expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
     });
-    res.status(201).json({ accessToken });
+    res.status(201).json({ accessToken, photo, username: user.username });
   } catch (error) {
     if (error instanceof z.ZodError) {
       let zodErrors = {};
@@ -84,7 +85,7 @@ export async function login(req: ExpressRequest, res: ExpressResponse) {
 
     const existingUser = await UsersRepository.getUserByUsername(
       username,
-    ).select('password');
+    ).select({ password: 1, image: 1, username: 1 });
 
     if (!existingUser) {
       throw buildError('username', 'Invalid username');
@@ -100,12 +101,16 @@ export async function login(req: ExpressRequest, res: ExpressResponse) {
 
     await TokensRepository.createToken(refreshToken);
 
+    const photo = await getFile(existingUser.image);
+
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       path: '/auth',
       expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
     });
-    res.status(201).json({ accessToken });
+    res
+      .status(201)
+      .json({ accessToken, photo, username: existingUser.username });
   } catch (error) {
     if (error instanceof z.ZodError) {
       let zodErrors = {};
@@ -211,6 +216,11 @@ export async function checkAuth(
       accessToken,
       process.env.ACCESS_TOKEN_SECRET || 'secret',
     ) as JwtPayload;
+
+    const user = UsersRepository.getUserById(payload.userId);
+    if (!user) {
+      throw buildError('headers', 'Invalid authorization header');
+    }
 
     req.userId = payload.userId;
     next();
