@@ -3,14 +3,13 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { FormControls, FormGroup, PictureUpload, SelectFavourite } from '.';
 import { SignUpSchema, TSignUpSchema } from '../../utils';
 import { useState } from 'react';
-import { useAxios } from '../../hooks';
-import { useMutation } from '@tanstack/react-query';
+import { useAuth } from '../../hooks';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
+import { axiosPublic } from '../../api';
 import { useLocation, useNavigate } from 'react-router';
 
 export function SignUpForm() {
-  const location = useLocation();
-  const navigate = useNavigate();
   const [fileName, setFileName] = useState('Choose a file');
   const [selectedOption, setSelectedOption] = useState({
     value: '',
@@ -18,27 +17,36 @@ export function SignUpForm() {
   });
   const {
     register,
+    setValue,
     handleSubmit,
     reset,
-    setValue,
     formState: { errors, isSubmitting },
   } = useForm<TSignUpSchema>({ resolver: zodResolver(SignUpSchema) });
 
-  const axiosPrivate = useAxios();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const queryClient = useQueryClient();
+  const { saveToken } = useAuth();
 
-  const { status, error, mutate } = useMutation<
+  const { mutate, status, error } = useMutation<
     AxiosResponse<Record<string, string>>,
     Error,
     FormData
   >({
-    mutationFn: async newUser => {
-      return axiosPrivate.post('/auth/register', newUser);
+    mutationKey: ['auth', 'register'],
+    mutationFn: newUser => axiosPublic.post('/auth/register', newUser),
+    onSuccess: response => {
+      saveToken(response.data.accessToken);
+      queryClient.invalidateQueries(['users', 'card-details']);
+      navigate('/', { state: { from: location }, replace: true });
     },
   });
 
-  const onSubmit: SubmitHandler<TSignUpSchema> = async (
+  const onSubmit: SubmitHandler<TSignUpSchema> = (
     data: TSignUpSchema,
+    event?: React.BaseSyntheticEvent<object, unknown, unknown>,
   ) => {
+    event?.preventDefault();
     const formData = new FormData();
     formData.append('firstName', data.firstName);
     formData.append('lastName', data.lastName);
@@ -52,7 +60,6 @@ export function SignUpForm() {
     reset();
     setFileName('Choose a file');
     setSelectedOption({ value: '', label: 'Select...' });
-    navigate('/', { state: { from: location }, replace: true });
   };
 
   if (status === 'loading') {

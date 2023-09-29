@@ -5,14 +5,12 @@ import { AuthContextProvider } from '../contexts';
 
 export function RootLayout() {
   return (
-    <>
+    <AuthContextProvider>
       <Header />
       <main className='min-h-screen bg-accent-400'>
-        <AuthContextProvider>
-          <Outlet />
-        </AuthContextProvider>
+        <Outlet />
       </main>
       <Footer />
-    </>
+    </AuthContextProvider>
   );
 }

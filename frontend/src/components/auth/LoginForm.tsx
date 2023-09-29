@@ -2,6 +2,11 @@ import { FormControls, FormGroup } from '.';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { LoginSchema, TLoginSchema } from '../../utils';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { axiosPublic } from '../../api';
+import { useAuth } from '../../hooks';
+import { AxiosResponse } from 'axios';
+import { useLocation, useNavigate } from 'react-router';
 
 export function LoginForm() {
   const {
@@ -13,8 +18,28 @@ export function LoginForm() {
     resolver: zodResolver(LoginSchema),
   });
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const queryClient = useQueryClient();
+  const { saveToken } = useAuth();
+
+  const { mutate } = useMutation<
+    AxiosResponse<Record<string, string>>,
+    Error,
+    TLoginSchema
+  >({
+    mutationKey: ['auth', 'login'],
+    mutationFn: data => axiosPublic.post('/auth/login', data),
+    onSuccess: response => {
+      saveToken(response.data.accessToken);
+      queryClient.invalidateQueries(['users', 'card-details']);
+      navigate('/', { state: { from: location }, replace: true });
+    },
+  });
+
   const onSubmit: SubmitHandler<TLoginSchema> = (data: TLoginSchema) => {
-    console.log(data);
+    mutate(data);
     reset();
   };
 

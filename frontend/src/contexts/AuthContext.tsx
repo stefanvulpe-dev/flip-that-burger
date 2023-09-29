@@ -1,20 +1,26 @@
-import { ReactNode, createContext, useState } from 'react';
+import { ReactNode, createContext } from 'react';
 
 type AuthContext = {
-  auth: { token: string | null };
-  setAuth: React.Dispatch<
-    React.SetStateAction<{
-      token: null;
-    }>
-  >;
+  getToken: () => string;
+  saveToken: (token: string) => void;
+  removeToken: () => void;
 };
 
 export const AuthContext = createContext<AuthContext | null>(null);
 
 export function AuthContextProvider({ children }: { children: ReactNode }) {
-  const [auth, setAuth] = useState({ token: null });
+  const saveToken = (token: string) => {
+    localStorage.setItem('accessToken', token);
+  };
+
+  const getToken = () => {
+    return localStorage.getItem('accessToken') || '';
+  };
+
+  const removeToken = () => localStorage.removeItem('accessToken');
+
   return (
-    <AuthContext.Provider value={{ auth, setAuth }}>
+    <AuthContext.Provider value={{ saveToken, removeToken, getToken }}>
       {children}
     </AuthContext.Provider>
   );

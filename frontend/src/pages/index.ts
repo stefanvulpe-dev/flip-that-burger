@@ -7,3 +7,4 @@ export * from './Menu';
 export * from './OnlineOrder';
 export * from './SignUp';
 export * from './UserProfile';
+export * from './LandingPage';

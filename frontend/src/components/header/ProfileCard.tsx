@@ -5,19 +5,16 @@ import {
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { ForwardedRef, forwardRef, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAxios } from '../../hooks';
-import defaultPicture from '../assets/user/default-user.png';
+import { useAuth, useAxios } from '../../hooks';
+import { AxiosError } from 'axios';
+import defaultPicture from '../../assets/user/default-user.png';
 
 type ProfileCardData = {
   username: string;
   photo: string;
-};
-
-type ProfileCardError = {
-  profileCard: string;
 };
 
 export const ProfileCard = forwardRef(function (
@@ -29,28 +26,34 @@ export const ProfileCard = forwardRef(function (
 
   const [isInfoActive, setIsInfoActive] = useState(false);
 
-  const axiosPrivate = useAxios();
+  const { removeToken, getToken } = useAuth();
+  const accessToken = getToken();
 
-  const { data, status, error } = useQuery<
-    ProfileCardData | ProfileCardError,
-    Error,
-    ProfileCardData | ProfileCardError
-  >(['card-details'], {
+  const axiosPrivate = useAxios();
+  const queryClient = useQueryClient();
+
+  const { data, status } = useQuery<
+    ProfileCardData,
+    AxiosError<Record<string, string>>,
+    ProfileCardData
+  >({
+    queryKey: ['users', 'card-details'],
     queryFn: async () => {
-      const response = await axiosPrivate.get<
-        ProfileCardData | ProfileCardError
-      >('/users/card-details', {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      return response.data;
+      const { data } = await axiosPrivate.get<ProfileCardData>(
+        '/users/card-details',
+      );
+      return data;
     },
+    refetchOnWindowFocus: false,
   });
 
-  if (status === 'error') {
-    console.log(error?.message);
-  }
+  const { mutate } = useMutation({
+    mutationKey: ['auth', 'logout'],
+    mutationFn: () => axiosPrivate.delete('/auth/logout'),
+    onSuccess: () => {
+      queryClient.setQueriesData(['users', 'card-details'], null);
+    },
+  });
 
   return (
     <div
@@ -58,6 +61,7 @@ export const ProfileCard = forwardRef(function (
       className='self-center justify-self-end xl:justify-self-center bg-accent-100 pt-8 pb-48 absolute -bottom-[40rem] sm:-bottom-[35rem] left-0 right-0 transition-position ease-in-out duration-700 z-[20] [&:not(.active)]:-left-full [&:not(.active)]:right-full md:static md:py-0'>
       <button
         onClick={() => {
+          if (accessToken === '') return;
           infoRef.current?.classList.toggle('active');
           profileRef.current?.classList.toggle('active');
           setIsInfoActive(!isInfoActive);
@@ -65,26 +69,25 @@ export const ProfileCard = forwardRef(function (
         ref={profileRef}
         className='relative mx-auto justify-self-center bg-accent-200 [&:not(.active)]:rounded-l-[3rem] [&:is(.active)]:rounded-ss-xl [&:is(.active)]:rounded-ee-none transition-borderRadius duration-300 ease-in-out rounded-r-2xl flex justify-center items-center gap-6 py-2 px-4 w-max cursor-pointer'>
         <img
-          src={
-            status === 'loading' || status === 'error'
-              ? defaultPicture
-              : (data as ProfileCardData).photo
-          }
+          src={!data || status === 'error' ? defaultPicture : data.photo}
           alt='avatar'
           className='max-w-[3.5rem] border-4 border-accent-400 rounded-full object-contain'
         />
-        {status === 'loading' || status === 'error' ? (
+        {!data || status === 'error' ? (
           <Link
             to='/login'
             className='block max-w-[14ch] mx-auto group'
-            onClick={onClick}>
-            <span className='border-accent-200 border-b-2 transition-colors group-hover:border-b-2 group-hover:border-accent-400'>
-              Log in
+            onClick={e => {
+              e.stopPropagation();
+              onClick();
+            }}>
+            <span className='text-accent-400 border-accent-200 border-b-2 transition-colors group-hover:border-b-2 group-hover:border-accent-400'>
+              Log in right here
             </span>
           </Link>
         ) : (
           <p className='text-accent-400 text-base xl:text-lg font-semibold border-accent-200 border-b-2 transition-colors hover:border-b-2 hover:border-accent-400'>
-            {(data as ProfileCardData).username}
+            {data.username}
           </p>
         )}
         <FontAwesomeIcon
@@ -96,21 +99,22 @@ export const ProfileCard = forwardRef(function (
           className='transition-visibility duration-400 ease-in absolute top-[calc(100%-1px)] left-0 right-0 [&:not(.active)]:invisible visible py-6 bg-accent-200 rounded-es-xl rounded-ee-xl text-accent-400'>
           <Link
             to='/profile'
-            className='block mb-6 max-w-[14ch] mx-auto group'
+            className='flex gap-4 justify-start items-center mb-6 max-w-[14ch] mx-auto group'
             onClick={onClick}>
-            <FontAwesomeIcon icon={faUser} className='text-xl pr-4' />
+            <FontAwesomeIcon icon={faUser} className='text-xl' />
             <span className='border-accent-200 border-b-2 transition-colors group-hover:border-b-2 group-hover:border-accent-400'>
               Your profile
             </span>
           </Link>
           <Link
             to='/login'
-            className='block max-w-[14ch] mx-auto group'
-            onClick={onClick}>
-            <FontAwesomeIcon
-              icon={faRightFromBracket}
-              className='text-xl pr-4'
-            />
+            className='flex gap-4 justify-start items-center max-w-[14ch] mx-auto group'
+            onClick={() => {
+              mutate();
+              removeToken();
+              onClick();
+            }}>
+            <FontAwesomeIcon icon={faRightFromBracket} className='text-xl' />
             <span className='border-accent-200 border-b-2 transition-colors group-hover:border-b-2 group-hover:border-accent-400'>
               Sign out
             </span>

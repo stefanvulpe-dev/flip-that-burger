@@ -6,7 +6,6 @@ import {
   Route,
   RouterProvider,
 } from 'react-router-dom';
-import App from './App.tsx';
 import './index.css';
 import { RootLayout } from './layouts';
 import {
@@ -19,13 +18,15 @@ import {
   PageNotFound,
   SignUp,
   UserProfile,
+  LandingPage,
 } from './pages';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<RootLayout />}>
-      <Route index element={<App />} />
+      <Route index element={<LandingPage />} />
       <Route path='about' element={<About />} />
       <Route path='menu' element={<Menu />} />
       <Route path='contact' element={<Contact />} />
@@ -47,6 +48,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router}></RouterProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   </React.StrictMode>,
 );

@@ -1,17 +1,18 @@
 import { ProfileSectionsList, ProfileTitle } from '../components';
 import { ProfileControls } from '../layouts';
-import { RequestConfig, User } from '../utils';
-import { useFetch } from '../hooks';
+import { User } from '../utils';
+import defaultPicture from '../assets/user/default-user.png';
 
 export function UserProfile() {
-  const config: RequestConfig = {
-    method: 'get',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    url: '/users/profile',
+  const user: User = {
+    firstName: 'John',
+    lastName: 'Doe',
+    phone: '123456789',
+    email: 'johndoe@gmail.com',
+    image: defaultPicture,
+    favouriteRestaurant: 'Iasi, RO',
+    orders: [],
   };
-  const user = useFetch<User | null>(config);
 
   return (
     <div className='w-11/12 max-w-6xl mx-auto grid gap-8 lg:grid-cols-[1fr_2fr] lg:mt-20'>

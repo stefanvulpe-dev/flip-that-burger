@@ -4,17 +4,15 @@ import { axiosPrivate } from '../api';
 import { AxiosError } from 'axios';
 
 export function useAxios() {
-  const { auth } = useAuth();
   const refresh = useRefreshToken();
+  const { getToken } = useAuth();
+  const accessToken = getToken();
 
   useEffect(() => {
-    const controller = new AbortController();
-
     const requestInterceptor = axiosPrivate.interceptors.request.use(
       config => {
-        config.signal = controller.signal;
-        if (auth.token && !config.headers['Authorization']) {
-          config.headers.Authorization = `Bearer ${auth.token}`;
+        if (accessToken && !config.headers['authorization']) {
+          config.headers['authorization'] = `Bearer ${accessToken}`;
         }
         return config;
       },
@@ -29,7 +27,7 @@ export function useAxios() {
         if (error.response?.status === 403) {
           const newAuthToken = await refresh();
           if (error.config) {
-            error.config.headers['Authorization'] = `Bearer ${newAuthToken}`;
+            error.config.headers['authorization'] = `Bearer ${newAuthToken}`;
             return axiosPrivate.request(error.config);
           }
           return Promise.reject(error);
@@ -39,11 +37,10 @@ export function useAxios() {
     );
 
     return () => {
-      controller.abort();
       axiosPrivate.interceptors.request.eject(requestInterceptor);
       axiosPrivate.interceptors.response.eject(responseInterceptor);
     };
-  }, [auth, refresh]);
+  }, [accessToken, refresh]);
 
   return axiosPrivate;
 }
